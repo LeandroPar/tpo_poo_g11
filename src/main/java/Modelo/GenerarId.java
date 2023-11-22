@@ -4,14 +4,14 @@ public class GenerarId {
     private static int userId=0;
     private static int itemId=0;
 
-    public static int generarUserId() {
+    public static String generarUserId() {
         userId++;
-        return userId;
+        return Integer.toString(userId);
     }
 
-    public static int generarItemId() {
+    public static String generarItemId() {
         itemId++;
-        return itemId;
+        return Integer.toString(itemId);
     }
 
 }

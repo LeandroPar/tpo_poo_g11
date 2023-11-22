@@ -23,7 +23,7 @@ public class Supertlon {
     private ArrayList<Administrativo> admins;
     private ArrayList<SoporteTecnico> tecnicos;
     private ArrayList<Articulo> articulos;
-    private HashMap<Integer, String> login;
+    private HashMap<String, String> login;
 
     private Supertlon() {}
     public static Supertlon getInstance() {
@@ -38,6 +38,13 @@ public class Supertlon {
         }
         return supertlon;
     }
+    
+    public String login(String userId) {
+        if (login.containsKey(userId)) {
+            return login.get(userId);
+        }
+        return null;
+    }
 
     public void altaAlumno(String nombre, Nivel membresia) {
         Alumno alumno = new Alumno(nombre, membresia);
@@ -46,9 +53,9 @@ public class Supertlon {
         System.out.println("Alumno agregado");
     }
 
-    public boolean bajaAlumno(int id) {
+    public boolean bajaAlumno(String id) {
         for (Alumno alumno: alumnos) {
-            if (alumno.getId() == id) {
+            if (alumno.getId().equals(id)) {
                 alumnos.remove(alumno);
                 login.remove(id);
                 return true;
@@ -57,16 +64,16 @@ public class Supertlon {
         return false;
     }
 
-    public void altaAdministrativo(String nombre, ArrayList<String> sedes) {
+    public boolean altaAdministrativo(String nombre, ArrayList<String> sedes) {
         Administrativo admin = new Administrativo(nombre, sedes);
         admins.add(admin);
         login.put(admin.getId(), "Administrativo");
-        System.out.println("Administrativo agregado");
+        return true;
     }
-    public boolean bajaAdministrativo(int id) {
+    public boolean bajaAdministrativo(String id) {
         for (Administrativo admin: admins) {
             System.out.println(admin.getId());
-            if (admin.getId() == id) {
+            if (admin.getId().equals(id)) {
                 admins.remove(admin);
                 login.remove(id);
                 return true;
@@ -74,6 +81,14 @@ public class Supertlon {
         }
         return false;
     }
+    
+    public boolean altaSoporte(String nombre) {
+        SoporteTecnico soporte = new SoporteTecnico(nombre);
+        tecnicos.add(soporte);
+        login.put(soporte.getId(), "Soporte Tecnico");
+        return true;
+    }
+    
     public boolean altaSucursal(String barrio, Nivel nivel, TipoLugar lugar, double superficieM2, int alquiler) {
         for (SucursalGimnasio sucursalGimnasio : sucursales) {
             if (sucursalGimnasio.getSedeNombre().equals(barrio)) return false;
@@ -81,9 +96,9 @@ public class Supertlon {
         sucursales.add(new SucursalGimnasio(barrio, nivel, lugar, superficieM2, alquiler));
         return true;
     }
-    private Alumno buscarAlumno(int id) {
+    private Alumno buscarAlumno(String id) {
         for (Alumno alum : alumnos) {
-            if (alum.getId()==id) return alum;
+            if (alum.getId().equals(id)) return alum;
         }
         return null;
     }
@@ -98,7 +113,7 @@ public class Supertlon {
         }
         return false;
     }
-    public boolean reservarClase(int id) {
+    public boolean reservarClase(String id) {
         Alumno alumno = buscarAlumno(id);
         ArrayList<SucursalGimnasio> listaSedes = new ArrayList<>();
         for (SucursalGimnasio sucursalDisponible : sucursales) {
@@ -180,7 +195,7 @@ public class Supertlon {
         //clase.actualizar(sucursal) Actualizar rentabilidad de la clase, capacidad...
         return true;
     }
-    public boolean altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, int userId) {
+    public boolean altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
         if (!profesor.estaDisponible(horario, duracion)) {
             System.out.println("Profesor no disponible");
             return false;
@@ -189,7 +204,7 @@ public class Supertlon {
             Administrativo administrativo=null;
             Scanner input = new Scanner(System.in);
             for (Administrativo admin : admins){
-                if (admin.getId()==userId) administrativo=admin;
+                if (admin.getId().equals(userId)) administrativo=admin;
             }
             System.out.println("Ingresar nombre de la sede donde se agendará la clase, o ingresar 0 para cancelar: ");
             String sede = input.nextLine();
@@ -216,11 +231,11 @@ public class Supertlon {
     public void transicionarClase() {
         return;
     }
-    public void monitorearStreaming(String sucursalNombre, int userId) {
+    public void monitorearStreaming(String sucursalNombre, String userId) {
         Administrativo administrativo = null;
         SucursalGimnasio sucursal = null;
         for (Administrativo admin : admins) {
-            if (admin.getId()==userId) administrativo = admin;
+            if (admin.getId().equals(userId)) administrativo = admin;
         }
         if (administrativo.getSedes().contains(sucursalNombre))
             for (SucursalGimnasio sucursalGimnasio : sucursales) {
@@ -393,7 +408,7 @@ public class Supertlon {
         Scanner input = new Scanner(System.in);
         Administrativo administrativo=null;
         for (Administrativo admin : admins){
-            if (admin.getId()==userId) administrativo=admin;
+            if (admin.getId().equals(userId)) administrativo=admin;
         }
         System.out.println("Ingresar nombre de la sede donde se agendará la clase, o ingresar 0 para cancelar: ");
         String sede = input.nextLine();
@@ -497,7 +512,7 @@ public class Supertlon {
         return articulos;
     }
 
-    public HashMap<Integer, String> getLogin() {
+    public HashMap<String, String> getLogin() {
         return login;
     }
 }

@@ -10,7 +10,7 @@ public class SoftTech extends Colchoneta{
     private Amortizacion amortizacion;
     private String nombre;
     private int id;
-    private int itemId;
+    private String itemId;
 
     public SoftTech() {
         this.ancho = 1.5;
@@ -45,4 +45,13 @@ public class SoftTech extends Colchoneta{
     public String getNombre() {
         return nombre;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+    
 }

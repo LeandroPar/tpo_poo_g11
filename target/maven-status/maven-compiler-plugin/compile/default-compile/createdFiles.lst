@@ -32,5 +32,4 @@ Modelo\Usuarios\Administrativo.class
 Modelo\enums\Amortizacion.class
 Modelo\Ejercicios\GimnasiaPostural.class
 Modelo\GenerarId.class
-Vista\Login$2.class
 Modelo\enums\UsoPesa.class

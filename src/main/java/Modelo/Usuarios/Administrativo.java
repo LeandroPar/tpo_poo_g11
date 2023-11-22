@@ -5,7 +5,7 @@ import Modelo.GenerarId;
 
 public class Administrativo extends Usuario {
     private String nombre;
-    private int id;
+    private String id;
     private ArrayList<String> sedes;
 
     public Administrativo(String nombre, ArrayList<String> sedes) {
@@ -18,7 +18,7 @@ public class Administrativo extends Usuario {
         return nombre;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

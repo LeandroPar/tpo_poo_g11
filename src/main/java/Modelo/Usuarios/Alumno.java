@@ -11,7 +11,7 @@ public class Alumno extends Usuario{
     private Nivel membresia;
     private int costoMembresia;
     private ArrayList<Clase> clases;
-    private int id;
+    private String id;
 
     public Alumno(String nombre, Nivel membresia) {
         this.nombre = nombre;
@@ -58,11 +58,11 @@ public class Alumno extends Usuario{
         this.clases.remove(clase);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

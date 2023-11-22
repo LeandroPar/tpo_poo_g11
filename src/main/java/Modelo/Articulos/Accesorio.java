@@ -6,7 +6,7 @@ public class Accesorio extends Articulo {
     private int desgaste;
     private String nombre;
     private int id;
-    private int itemId;
+    private String itemId;
 
     public Accesorio(String nombre) {
         this.nombre = nombre;

@@ -9,7 +9,7 @@ public class IronMan extends Pesa{
     private Amortizacion amortizacion;
     private String nombre;
     private int id;
-    private int itemId;
+    private String itemId;
 
     public IronMan(UsoPesa uso) {
         this.uso = uso;

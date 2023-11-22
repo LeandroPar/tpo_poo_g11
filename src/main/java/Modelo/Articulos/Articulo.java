@@ -3,7 +3,7 @@ package Modelo.Articulos;
 public abstract class Articulo {
     private int desgaste;
     private int id;
-    private int itemId;
+    private String itemId;
 
     public int getId() {
         return id;
@@ -13,11 +13,11 @@ public abstract class Articulo {
         this.id = id;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

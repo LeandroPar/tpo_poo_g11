@@ -10,7 +10,7 @@ public class Pampero extends Colchoneta{
     private Amortizacion amortizacion;
     private String nombre;
     private int id;
-    private int itemId;
+    private String itemId;
 
 
     public Pampero() {
@@ -54,11 +54,11 @@ public class Pampero extends Colchoneta{
         this.id = id;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 }

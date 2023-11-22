@@ -2,9 +2,9 @@ package Modelo.Usuarios;
 
 public abstract class Usuario {
     private String nombre;
-    private int id;
+    private String id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 }

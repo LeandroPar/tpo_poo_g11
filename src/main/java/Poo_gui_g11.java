@@ -18,7 +18,7 @@ public class Poo_gui_g11 {
     
     public static void main (String[] args) {
         Supertlon controller = Supertlon.getInstance();
-        int testData = 0;
+        int testData = 1;
 
         //Declaración de datos de prueba
         if (testData==1) {
@@ -27,6 +27,7 @@ public class Poo_gui_g11 {
             lista.add("Nunez");
             controller.altaAdministrativo("Jorgito", lista);
             controller.altaAlumno("Jose", Nivel.ORO);
+            controller.altaSoporte("Marquito");
             controller.altaSucursal("Palermo", Nivel.ORO, TipoLugar.SALON, 25, 15000);
             controller.altaSucursal("Liniers", Nivel.BLACK, TipoLugar.SALON, 23, 1500);
             controller.altaSucursal("San Lorenzo", Nivel.PLATINUM, TipoLugar.SALON, 18.5, 1500);

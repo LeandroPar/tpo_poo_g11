@@ -11,7 +11,7 @@ public class Gadnic extends Pesa{
     private Amortizacion amortizacion;
     private String nombre;
     private int id;
-    private int itemId;
+    private String itemId;
 
     public Gadnic(UsoPesa uso) {
         this.uso = uso;
@@ -46,4 +46,14 @@ public class Gadnic extends Pesa{
     public String getNombre() {
         return nombre;
     }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    
 }
