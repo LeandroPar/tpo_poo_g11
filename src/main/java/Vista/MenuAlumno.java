@@ -212,7 +212,7 @@ public class MenuAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
         int index = comboClases.getSelectedIndex();
         Clase clase = clases.get(index);
-        controlador.reservarClase(this.userId, clase);
+        //controlador.reservarClase(this.userId, clase);
     }//GEN-LAST:event_btnReservarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

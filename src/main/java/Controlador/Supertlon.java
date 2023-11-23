@@ -148,17 +148,115 @@ public class Supertlon {
         }
         return listaClases;
     }
-    public boolean reservarClase(String id, Clase clase) {
+    public boolean reservarClase(String sede, String id, Clase clase) {
         Alumno alumno = buscarAlumno(id);
+        SucursalGimnasio sucursal = buscarSucursal(sede);
+        String ejercicio = clase.getEjercicio().getNombre();
+        int i = 0;
+        int size = sucursal.getArticulos().size();
+        ArrayList<Articulo> sucursalArticulos = sucursal.getArticulos();
+        switch (ejercicio) {
+            case "Crossfit":
+                ArrayList<Articulo> articulos = new ArrayList<>();
+                int pesaMano = 2;
+                int pesaTobillera = 2;
+                int pesaDisco= 1;
+                while ((pesaMano!=0 || pesaTobillera!= 0 || pesaDisco != 0) && i < size ) {
+                    Articulo articulo = sucursalArticulos.get(i);
+                    if (articulo.getId()==4 || articulo.getId()==5) {
+                        Pesa pesa = (Pesa)articulo;
+                        switch (pesa.getUso()) {
+                            case DE_MANO:
+                                if (pesaMano!=0) {
+                                    pesaMano--;
+                                    articulos.add(articulo);
+                                }
+                            case TOBILLERAS:    
+                                if (pesaTobillera!=0) {
+                                    pesaTobillera--;
+                                    articulos.add(pesa);
+                                }
+                            case DISCOS:
+                                if (pesaDisco!=0) {
+                                    pesaDisco--;
+                                    articulos.add(pesa);
+                                }
+                        }
+                    }
+                i++;    
+                }
+                if (pesaMano!=0 || pesaTobillera !=0 || pesaDisco !=0) return false;
+                for (Articulo item : articulos) {
+                    clase.addArticulo(item);
+                }
+            case "Yoga":
+                Articulo colS = null;
+                while (colS==null || i<size) {
+                    Articulo articulo = sucursalArticulos.get(i);
+                    if (articulo.getId()==1) {
+                        colS= articulo;
+                    }
+                    i++;
+                }
+                if (colS==null) return false;
+                clase.addArticulo(colS);
+            case "Gimnasia Postural":
+                Articulo colchonetaGim=null;
+                while (colchonetaGim==null || i<size) {
+                    Articulo articulo = sucursalArticulos.get(i);
+                    if (articulo.getId()==1) {
+                        colchonetaGim= articulo;
+                    }
+                    i++;
+                }
+                if (colchonetaGim==null) return false;
+                clase.addArticulo(colchonetaGim);
+            case "Kangoo Jumping":
+                Articulo colchonetaKangoo=null;
+                Articulo botasKangoo=null;
+                while (colchonetaKangoo==null || i<size) {
+                    Articulo articulo = sucursalArticulos.get(i);
+                    if (articulo.getId()==1) colchonetaKangoo= articulo;
+                    if (articulo.getId()==3) {
+                        Accesorio accesorio = (Accesorio)articulo;
+                        if (accesorio.getNombre().equals("Botas Kangoo")) botasKangoo=articulo;
+                    }
+                    i++;
+                }
+                if (colchonetaKangoo==null || botasKangoo==null) return false;
+                clase.addArticulo(colchonetaKangoo);
+                clase.addArticulo(botasKangoo);
+            case "Aero Combat":
+                int pesaManoAero=2;
+                ArrayList<Articulo> articulosAero = new ArrayList<>();
+                Articulo colchonetaAero = null;
+                while ((pesaManoAero!=0 || colchonetaAero==null) && i < size ) {
+                    Articulo articulo = sucursalArticulos.get(i);
+                    if (articulo.getId()==1 || articulo.getId()==4 || articulo.getId()==5) {
+                        if (articulo.getId()==1) colchonetaAero= articulo;
+                        else {
+                            Pesa pesaAero = (Pesa)articulo;
+                            if (pesaAero.getUso()==UsoPesa.DE_MANO) {
+                                articulosAero.add(articulo);
+                                pesaManoAero--;
+                            }
+                        }
+                    }
+                i++;    
+                }
+                if (colchonetaAero==null || pesaManoAero==0) return false;
+                for (Articulo articuloAero : articulosAero) clase.addArticulo(articuloAero);
+                clase.addArticulo(colchonetaAero);
+        }
         alumno.addClase(clase);
         clase.addAlumno(alumno);
-        clase.actualizar();         // Actualizar rentabilidad de la clase, capacidad...
+        clase.actualizar(sucursal);         // Actualizar rentabilidad de la clase, capacidad...
         return true;
     }
-    public boolean altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
-        if (!profesor.estaDisponible(horario, duracion)) {
-            System.out.println("Profesor no disponible");
-            return false;
+    public String altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
+        String msj = profesor.estaDisponible(horario, duracion);
+        if (!msj.equals("Profesor disponible")) {
+            return msj;
         }
         else {
             Administrativo administrativo=null;
@@ -174,7 +272,7 @@ public class Supertlon {
                 sede = input.nextLine();
             }
 
-            if (sede.equals("0")) return false;
+            if (sede.equals("0")) return "Cancelado";
             SucursalGimnasio sucursal= null;
             for (SucursalGimnasio s : sucursales) {
                 if (s.getSedeNombre().equals(sede)) {
@@ -182,10 +280,10 @@ public class Supertlon {
                 }
             }
             if (sucursal.colisionHorario(horario, duracion)) {
-                return false;
+                return "Ya hay otra clase en ese horario";
             }
         }
-        return true;
+        return "Clase registrada";
     }
 
     public void transicionarClase() {

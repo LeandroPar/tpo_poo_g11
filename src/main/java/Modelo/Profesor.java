@@ -40,9 +40,21 @@ public class Profesor {
         return agenda;
     }
 
-    public boolean estaDisponible(LocalDateTime horario, LocalTime duracion) {
-    int max = 3;
-    LocalDateTime horarioFinal = horario.plusHours(duracion.getHour() + 3).plusMinutes(duracion.getMinute());
-    return true;
+    public String estaDisponible(LocalDateTime horario, LocalTime duracion) {
+        int max = 3;
+        LocalDateTime horarioFinal = horario.plusHours(duracion.getHour() + 3).plusMinutes(duracion.getMinute());
+        for (Clase clase : this.agenda.getClases()) {
+            if (max==0) return "El profesor ya tiene 3 clases en el dia ingresado";
+            LocalDateTime horario2 = clase.getHorario();
+            if ( horario.toLocalDate().equals(horario2.toLocalDate())) {
+                max--;
+                LocalTime duracion2 = clase.getDuracion();
+                LocalDateTime horario2Final = horario2.plusHours(duracion2.getHour()).plusMinutes(duracion2.getMinute());
+                if ( horario.isBefore(horario2Final) && horario2.isBefore(horarioFinal)) {
+                    return "El profesor ya tiene una clase en ese horario";
+                }
+            }
+        }
+        return "Profesor disponible";
     }
 }
