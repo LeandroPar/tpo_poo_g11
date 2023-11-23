@@ -243,7 +243,6 @@ public class VentanaInformacion extends javax.swing.JFrame {
             }
             
         });
-        this.dispose();
     }//GEN-LAST:event_agendaActionPerformed
 
     private void gestionarArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarArticulosActionPerformed
