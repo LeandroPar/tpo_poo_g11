@@ -111,7 +111,6 @@ public class CargarCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCarga;
     private javax.swing.JButton botonVolver;

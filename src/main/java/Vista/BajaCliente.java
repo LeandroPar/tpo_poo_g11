@@ -118,7 +118,6 @@ public class BajaCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_volverAtrasActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
