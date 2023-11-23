@@ -33,11 +33,13 @@ Modelo\Usuarios\Administrativo.class
 Vista\VentanaInformacion$3.class
 Vista\MenuAlumno.class
 Modelo\GenerarId.class
+Vista\Agenda$2.class
 Vista\VentanaInformacion$6.class
 Vista\ClasesStreaming.class
 Vista\MenuAlumno$3.class
 Modelo\enums\UsoPesa.class
 Vista\VentanaInformacion$16.class
+Vista\GestionarClase$2.class
 Vista\GestionarClase.class
 Modelo\Lugar.class
 Vista\BajaCliente$1.class
@@ -52,6 +54,7 @@ Vista\Agenda.class
 Modelo\Ejercicios\KangooJumping.class
 Vista\VentanaInformacion$15.class
 Vista\Login$1.class
+Vista\ClasesStreaming$2.class
 Vista\VentanaInformacion.class
 Modelo\Usuarios\SoporteTecnico.class
 Modelo\Agenda.class
