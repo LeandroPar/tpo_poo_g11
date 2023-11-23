@@ -26,7 +26,7 @@ public class MenuAdministrativo extends javax.swing.JFrame {
         
         ArrayList<String> sucursales = controlador.getNombresSucursales();
         for(String sucursal : sucursales){
-               ListaSucursales.addItem(sucursal);
+               ListaSucursales.addItem(sucursal);      
         }
     }
 
@@ -86,7 +86,7 @@ public class MenuAdministrativo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Bienvenido");
+        jLabel1.setText("Seleccione una sucursal");
 
         ListaSucursales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,20 +99,23 @@ public class MenuAdministrativo extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ListaSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(164, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(ListaSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(42, 42, 42)
                 .addComponent(ListaSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,10 +133,12 @@ public class MenuAdministrativo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ListaSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaSucursalesActionPerformed
-
-        VentanaInformacion ventana = new VentanaInformacion();
+        String nombre = ListaSucursales.getSelectedItem().toString();
+        
+        VentanaInformacion ventana = new VentanaInformacion(nombre);
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
+        
     }//GEN-LAST:event_ListaSucursalesActionPerformed
 
 
