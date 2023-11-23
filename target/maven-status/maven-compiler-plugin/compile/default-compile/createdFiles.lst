@@ -2,6 +2,7 @@ Vista\Login.class
 Modelo\Usuarios\Alumno.class
 Modelo\Usuarios\Usuario.class
 Vista\VentanaInformacion$13.class
+Vista\CargarCliente$3.class
 Modelo\Articulos\SoftTech.class
 Vista\MenuAdministrativo.class
 Vista\VentanaSeleccionarTipoArticulo$1.class

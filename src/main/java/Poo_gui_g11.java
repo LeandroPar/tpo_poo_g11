@@ -26,7 +26,7 @@ public class Poo_gui_g11 {
             lista.add("San Lorenzo");
             lista.add("Nunez");
             controller.altaAdministrativo("Jorgito", lista);
-            controller.altaAlumno("Jose", Nivel.ORO);
+            controller.altaAlumno("Jose", "ORO");
             controller.altaSoporte("Marquito");
             controller.altaSucursal("Palermo", Nivel.ORO, TipoLugar.SALON, 25, 15000);
             controller.altaSucursal("Liniers", Nivel.BLACK, TipoLugar.SALON, 23, 1500);

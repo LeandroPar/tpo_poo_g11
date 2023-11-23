@@ -13,7 +13,7 @@ public class CargarCliente extends javax.swing.JFrame {
     private Supertlon controlador;
     public CargarCliente() {
         initComponents();
-        Supertlon controlador = Supertlon.getInstance();
+        controlador = Supertlon.getInstance();
         membresia.addItem("BLACK");
         membresia.addItem("ORO");
         membresia.addItem("PLATINUM");
