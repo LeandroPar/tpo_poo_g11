@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.Supertlon;
+import Vista.MenuAdministrativo;
 
 /**
  *
@@ -123,6 +124,10 @@ public class Login extends javax.swing.JFrame {
                 case "Soporte Tecnico":
                     break;
                 case "Administrador":
+                    MenuAdministrativo menuAdministrador = new MenuAdministrativo();
+                    menuAdministrador.setVisible(true);
+                    menuAdministrador.setLocationRelativeTo(null);
+                    
                     break;
                 case "Alumno":
                     break;

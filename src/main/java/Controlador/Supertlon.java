@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Supertlon {
@@ -504,6 +505,15 @@ public class Supertlon {
     public ArrayList<SucursalGimnasio> getSucursales() {
         return sucursales;
     }
+
+     public ArrayList<String> getNombresSucursales(){
+        ArrayList<SucursalGimnasio> sucursales = getSucursales();
+        ArrayList<String> nombres = new ArrayList<String>();
+        for(SucursalGimnasio sucursal : sucursales){
+            nombres.add(sucursal.getSedeNombre());
+        }
+        return nombres;
+     }
 
     public ArrayList<Alumno> getAlumnos() {
         return alumnos;
