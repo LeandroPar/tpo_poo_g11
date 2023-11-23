@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Supertlon {
@@ -132,15 +133,15 @@ public class Supertlon {
         return listaSedes;
     }
     //metodo auxiliar para reserva de clase
-    public ArrayList<Clase> clasesDisponibles(String sede, String userId) {
+    /*public ArrayList<Clase> clasesDisponibles(String sede, String userId) {
         Alumno alumno = buscarAlumno(userId);
         SucursalGimnasio sucursal = buscarSucursal(sede);
         ArrayList<Clase> listaClases = new ArrayList<>();
         for (Clase clase : sucursal.getClases()) {
             
         }
-    }
-    public boolean reservarClase(String sede, String id) {
+    }*/
+    /*public boolean reservarClase(String sede, String id) {
         
 
         SucursalGimnasio sucursal = listaSedes.get(num);
@@ -188,7 +189,7 @@ public class Supertlon {
         clase.addAlumno(alumno);
         //clase.actualizar(sucursal) Actualizar rentabilidad de la clase, capacidad...
         return true;
-    }
+    }*/
     public boolean altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
         if (!profesor.estaDisponible(horario, duracion)) {
             System.out.println("Profesor no disponible");
@@ -498,6 +499,15 @@ public class Supertlon {
     public ArrayList<SucursalGimnasio> getSucursales() {
         return sucursales;
     }
+
+     public ArrayList<String> getNombresSucursales(){
+        ArrayList<SucursalGimnasio> sucursales = getSucursales();
+        ArrayList<String> nombres = new ArrayList<String>();
+        for(SucursalGimnasio sucursal : sucursales){
+            nombres.add(sucursal.getSedeNombre());
+        }
+        return nombres;
+     }
 
     public ArrayList<Alumno> getAlumnos() {
         return alumnos;
