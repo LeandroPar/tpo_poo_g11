@@ -6,16 +6,7 @@ package Vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-/**
- *
- * @author Roman
- */
 public class BajaCliente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form BajaCliente
-     */
     public BajaCliente() {
         initComponents();
     }

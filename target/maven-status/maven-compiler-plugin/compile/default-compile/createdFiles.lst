@@ -15,6 +15,7 @@ Modelo\Ejercicios\AeroCombat.class
 Modelo\enums\Modalidad.class
 Vista\MenuAlumno$2.class
 Vista\BajaCliente$3.class
+Vista\CargarCliente$2.class
 Modelo\Articulos\IronMan.class
 Vista\VentanaInformacion$12.class
 Vista\BajaCliente$2.class
@@ -62,9 +63,9 @@ Modelo\Articulos\Pampero.class
 Vista\GestionarClase$1.class
 Vista\VentanaInformacion$14.class
 Vista\ClasesStreaming$1.class
+Vista\GestionarArticulos$2.class
 Modelo\Articulos\Accesorio.class
 Modelo\enums\TipoLugar.class
-Vista\BajaCliente$4.class
 Vista\BajaCliente.class
 Modelo\Profesor.class
 Vista\VentanaInformacion$8.class
