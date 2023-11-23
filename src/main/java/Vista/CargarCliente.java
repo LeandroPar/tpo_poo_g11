@@ -3,18 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-
+import Controlador.Supertlon;
+import Modelo.enums.Nivel;
 /**
  *
  * @author Roman
  */
 public class CargarCliente extends javax.swing.JFrame {
-
+    private Supertlon controlador;
     /**
      * Creates new form CargarCliente
      */
     public CargarCliente() {
         initComponents();
+        controlador = Supertlon.getInstance();
+        membresia.add("BLACK");
+        membresia.add("ORO");
+        membresia.add("PLATINUM");
     }
 
     /**
@@ -34,6 +39,7 @@ public class CargarCliente extends javax.swing.JFrame {
         membresia = new javax.swing.JComboBox<>();
         botonCarga = new javax.swing.JButton();
         botonVolver = new javax.swing.JButton();
+        txtConfirmacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +52,11 @@ public class CargarCliente extends javax.swing.JFrame {
         membresia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         botonCarga.setText("Cargar");
+        botonCarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCargaActionPerformed(evt);
+            }
+        });
 
         botonVolver.setText("Volver");
 
@@ -68,7 +79,10 @@ public class CargarCliente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
                         .addComponent(botonCarga))
-                    .addComponent(botonVolver))
+                    .addComponent(botonVolver)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,7 +101,9 @@ public class CargarCliente extends javax.swing.JFrame {
                 .addComponent(membresia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(botonCarga)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,6 +120,14 @@ public class CargarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargaActionPerformed
+        String nombre = this.nombre.getText();
+        String membresia = this.membresia.getSelectedItem();
+        if (controlador.altaAlumno(nombre,membresia)) {
+            txtConfirmacion.setText("Alumno cargado correctamente");
+        } else txtConfirmacion.setText("El alumno nose pudo cargar");
+    }//GEN-LAST:event_botonCargaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCarga;
@@ -114,5 +138,6 @@ public class CargarCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> membresia;
     private javax.swing.JTextField nombre;
+    private javax.swing.JLabel txtConfirmacion;
     // End of variables declaration//GEN-END:variables
 }
