@@ -123,7 +123,7 @@ public class Login extends javax.swing.JFrame {
             switch (tipo) {
                 case "Soporte Tecnico":
                     break;
-                case "Administrador":
+                case "Administrativo":
                     MenuAdministrativo menuAdministrador = new MenuAdministrativo();
                     menuAdministrador.setVisible(true);
                     menuAdministrador.setLocationRelativeTo(null);

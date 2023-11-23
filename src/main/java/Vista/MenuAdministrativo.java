@@ -23,6 +23,11 @@ public class MenuAdministrativo extends javax.swing.JFrame {
     public MenuAdministrativo() {
         initComponents();
         controlador = Supertlon.getInstance();
+        
+        ArrayList<String> sucursales = controlador.getNombresSucursales();
+        for(String sucursal : sucursales){
+               ListaSucursales.addItem(sucursal);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +49,7 @@ public class MenuAdministrativo extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ListaSucursales = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,10 +88,9 @@ public class MenuAdministrativo extends javax.swing.JFrame {
 
         jLabel1.setText("Bienvenido");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        ListaSucursales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                ListaSucursalesActionPerformed(evt);
             }
         });
 
@@ -97,7 +101,7 @@ public class MenuAdministrativo extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ListaSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
@@ -107,7 +111,7 @@ public class MenuAdministrativo extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ListaSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(205, Short.MAX_VALUE))
         );
 
@@ -125,34 +129,16 @@ public class MenuAdministrativo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void ListaSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaSucursalesActionPerformed
 
-        ArrayList<String> sucursales = controlador.getNombresSucursales();
-        
-        JComboBox<String> comboBox = new JComboBox<>();
-        for(String sucursal : sucursales){
-               comboBox.addItem(sucursal);
-        }
-        
-        JFrame ventana = new JFrame("Sucursales");
-        
-        ventana.add(comboBox);
-        
-        comboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String sucursalSeleccionada = (String) comboBox.getSelectedItem();
-                JFrame ventanaInformacion = new JFrame("Información de la sucursal");
-                ventanaInformacion.add(new JLabel("Sucursal: " + sucursalSeleccionada));
-                ventanaInformacion.setVisible(true);
-                ventanaInformacion.setLocationRelativeTo(null);
-            }
-        });
+        VentanaInformacion ventana = new VentanaInformacion();
         ventana.setVisible(true);
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        ventana.setLocationRelativeTo(null);
+    }//GEN-LAST:event_ListaSucursalesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> ListaSucursales;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
