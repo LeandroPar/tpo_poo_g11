@@ -102,6 +102,12 @@ public class Supertlon {
         }
         return null;
     }
+    private SucursalGimnasio buscarSucursal(String sede) {
+        for (SucursalGimnasio sucursal : sucursales) {
+            if (sucursal.getSedeNombre().equals(sede)) return sucursal;
+        }
+        return null;
+    }
 
     public boolean altaProfesor(String nombreProfesor, int sueldoProfesor, String sedesucursal) {
         Profesor profe = new Profesor(nombreProfesor, sueldoProfesor);
@@ -113,41 +119,29 @@ public class Supertlon {
         }
         return false;
     }
-    public boolean reservarClase(String id) {
-        Alumno alumno = buscarAlumno(id);
-        ArrayList<SucursalGimnasio> listaSedes = new ArrayList<>();
+    
+    //metodo auxiliar para reserva de clase
+    public ArrayList<String> sucursalesDisponibles(String userId) {
+        Alumno alumno = buscarAlumno(userId);
+        ArrayList<String> listaSedes = new ArrayList<>();
         for (SucursalGimnasio sucursalDisponible : sucursales) {
-            if ((alumno.getMembresia().compareTo(sucursalDisponible.getNivel()) >= 0)) {
-                listaSedes.add(sucursalDisponible);
+            if ( (alumno.getMembresia().compareTo( sucursalDisponible.getNivel()) >=0 ) ) {
+                listaSedes.add( sucursalDisponible.getSedeNombre() );
             }
         }
-        System.out.println("Sedes disponibles para su Nivel de Membresia: ");
-        for(int i = 0; i<listaSedes.size(); i++) {
-            System.out.println(i + " - " + listaSedes.get(i).getSedeNombre());
+        return listaSedes;
+    }
+    //metodo auxiliar para reserva de clase
+    public ArrayList<Clase> clasesDisponibles(String sede, String userId) {
+        Alumno alumno = buscarAlumno(userId);
+        SucursalGimnasio sucursal = buscarSucursal(sede);
+        ArrayList<Clase> listaClases = new ArrayList<>();
+        for (Clase clase : sucursal.getClases()) {
+            
         }
-
-        boolean invalido = true;
-        int num = -1;
-        Scanner input = new Scanner(System.in);
-        do {
-            try {
-                System.out.println("Ingresar el numero de la sede para ver clases disponibles, o cualquier letra para cancelar la reserva: ");
-                num= Integer.parseInt(input.next());
-                if (0<=num && num<=listaSedes.size()) {
-                    invalido = false;
-                    input.reset();
-                }
-                else {
-                    System.out.println("Ingresar un numero válido");
-                    input.reset();
-                }
-            }
-            catch (Exception e) {
-                System.out.println("No se ingreso un numero. Cancelando reserva");
-                return false;
-            }
-        }
-        while (invalido);
+    }
+    public boolean reservarClase(String sede, String id) {
+        
 
         SucursalGimnasio sucursal = listaSedes.get(num);
         ArrayList<Clase> listaClases = new ArrayList<>();

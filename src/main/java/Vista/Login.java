@@ -12,7 +12,7 @@ import Controlador.Supertlon;
  */
 public class Login extends javax.swing.JFrame {
 
-    Supertlon controlador;
+    private Supertlon controlador;
     /**
      * Creates new form Login
      */
@@ -68,10 +68,11 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(loginreturn)
-                                .addGap(236, 236, 236)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(loginreturn, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(99, Short.MAX_VALUE))
@@ -94,7 +95,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresar)
-                    .addComponent(loginreturn))
+                    .addComponent(loginreturn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
 
@@ -116,15 +117,18 @@ public class Login extends javax.swing.JFrame {
 
         String id = txtUserId.getText();
         String tipo = controlador.login(id);
-        System.out.println(tipo);
         if (tipo!=null) {
-            loginreturn.setText(tipo);
+            loginreturn.setText("Sesion: " + tipo);
+            this.dispose();
             switch (tipo) {
                 case "Soporte Tecnico":
                     break;
-                case "Administrador":
+                case "Administrativo":
                     break;
                 case "Alumno":
+                    MenuAlumno menualumno = new MenuAlumno(id);
+                    menualumno.setVisible(true);
+                    menualumno.setLocationRelativeTo(null);
                     break;
                 default:
                     break;
