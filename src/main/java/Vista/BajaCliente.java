@@ -20,7 +20,7 @@ public class BajaCliente extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botonBaja = new javax.swing.JButton();
         volverAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,7 +37,7 @@ public class BajaCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Buscar");
+        botonBaja.setText("Dar de Baja");
 
         volverAtras.setText("Volver");
         volverAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -62,10 +62,10 @@ public class BajaCliente extends javax.swing.JFrame {
                             .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                             .addComponent(jLabel3)
                             .addComponent(jTextField2)))
+                    .addComponent(volverAtras)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jButton1))
-                    .addComponent(volverAtras))
+                        .addGap(148, 148, 148)
+                        .addComponent(botonBaja)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,7 +83,7 @@ public class BajaCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addComponent(jButton1)
+                .addComponent(botonBaja)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -119,7 +119,7 @@ public class BajaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_volverAtrasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonBaja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
