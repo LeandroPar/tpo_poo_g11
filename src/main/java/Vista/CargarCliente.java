@@ -3,32 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-<<<<<<< HEAD
+
 import Controlador.Supertlon;
 import Modelo.enums.Nivel;
-/**
- *
- * @author Roman
- */
-public class CargarCliente extends javax.swing.JFrame {
-    private Supertlon controlador;
-    /**
-     * Creates new form CargarCliente
-     */
-=======
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CargarCliente extends javax.swing.JFrame {
->>>>>>> d8d02eb42b675153fa7624d1f033a28dce97a506
+    private Supertlon controlador;
     public CargarCliente() {
         initComponents();
-        controlador = Supertlon.getInstance();
-        membresia.add("BLACK");
-        membresia.add("ORO");
-        membresia.add("PLATINUM");
+        Supertlon controlador = Supertlon.getInstance();
+        membresia.addItem("BLACK");
+        membresia.addItem("ORO");
+        membresia.addItem("PLATINUM");
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -129,10 +119,9 @@ public class CargarCliente extends javax.swing.JFrame {
 
     private void botonCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargaActionPerformed
         String nombre = this.nombre.getText();
-        String membresia = this.membresia.getSelectedItem();
-        if (controlador.altaAlumno(nombre,membresia)) {
-            txtConfirmacion.setText("Alumno cargado correctamente");
-        } else txtConfirmacion.setText("El alumno nose pudo cargar");
+        String membresia = this.membresia.getSelectedItem().toString();
+        controlador.altaAlumno(nombre, membresia);
+        txtConfirmacion.setText("Alummno cargado correctamente");
     }//GEN-LAST:event_botonCargaActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
@@ -147,7 +136,7 @@ public class CargarCliente extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
->>>>>>> d8d02eb42b675153fa7624d1f033a28dce97a506
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCarga;

@@ -47,11 +47,16 @@ public class Supertlon {
         return null;
     }
 
-    public void altaAlumno(String nombre, Nivel membresia) {
-        Alumno alumno = new Alumno(nombre, membresia);
+    public boolean altaAlumno(String nombre, String membresia) {
+        Nivel nivel= null;
+        if (membresia.equals("BLACK")) nivel = Nivel.BLACK;
+        else if (membresia.equals("ORO")) nivel = Nivel.ORO;
+        else if (membresia.equals("PLATINUM")) nivel = Nivel.PLATINUM;
+        Alumno alumno = new Alumno(nombre, nivel);
         alumnos.add(alumno);
         login.put(alumno.getId(), "Alumno");
         System.out.println("Alumno agregado");
+        return true;
     }
 
     public boolean bajaAlumno(String id) {
