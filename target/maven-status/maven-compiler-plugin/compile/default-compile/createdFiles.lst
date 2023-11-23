@@ -14,6 +14,7 @@ Vista\VentanaInformacion$10.class
 Modelo\Ejercicios\AeroCombat.class
 Modelo\enums\Modalidad.class
 Vista\MenuAlumno$2.class
+Vista\BajaCliente$3.class
 Modelo\Articulos\IronMan.class
 Vista\VentanaInformacion$12.class
 Vista\BajaCliente$2.class
@@ -63,12 +64,14 @@ Vista\VentanaInformacion$14.class
 Vista\ClasesStreaming$1.class
 Modelo\Articulos\Accesorio.class
 Modelo\enums\TipoLugar.class
+Vista\BajaCliente$4.class
 Vista\BajaCliente.class
 Modelo\Profesor.class
 Vista\VentanaInformacion$8.class
 Vista\VentanaInformacion$1.class
 Modelo\Articulos\Gadnic.class
 Modelo\enums\Nivel.class
+Vista\VentanaSeleccionarTipoArticulo$4.class
 Modelo\enums\Amortizacion.class
 Modelo\Ejercicios\GimnasiaPostural.class
 Vista\VentanaInformacion$11.class

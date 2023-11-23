@@ -189,7 +189,6 @@ public class VentanaInformacion extends javax.swing.JFrame {
        }
             
     });
-        
     }//GEN-LAST:event_agregarArticuloActionPerformed
 
     private void cargarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarClienteActionPerformed
@@ -244,6 +243,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
             }
             
         });
+        this.dispose();
     }//GEN-LAST:event_agendaActionPerformed
 
     private void gestionarArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarArticulosActionPerformed
@@ -252,9 +252,8 @@ public class VentanaInformacion extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e){
                 GestionarArticulos ventanaArticulos = new GestionarArticulos();
                 ventanaArticulos.setVisible(true);
-                ventanaArticulos.setLocationRelativeTo(null);
+                ventanaArticulos.setLocationRelativeTo(null);   
             }
-        
         });
     }//GEN-LAST:event_gestionarArticulosActionPerformed
 
@@ -265,11 +264,10 @@ public class VentanaInformacion extends javax.swing.JFrame {
                 MenuAdministrativo ventanaMenu = new MenuAdministrativo();
                 ventanaMenu.setVisible(true);
                 ventanaMenu.setLocationRelativeTo(null);
-                
-                
             }
             
         });
+        this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
 
 
