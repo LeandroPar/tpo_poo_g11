@@ -133,63 +133,28 @@ public class Supertlon {
         return listaSedes;
     }
     //metodo auxiliar para reserva de clase
-    /*public ArrayList<Clase> clasesDisponibles(String sede, String userId) {
+    public ArrayList<Clase> clasesDisponibles(String sede, String userId) {
         Alumno alumno = buscarAlumno(userId);
         SucursalGimnasio sucursal = buscarSucursal(sede);
         ArrayList<Clase> listaClases = new ArrayList<>();
         for (Clase clase : sucursal.getClases()) {
-            
-        }
-    }*/
-    /*public boolean reservarClase(String sede, String id) {
-        
-
-        SucursalGimnasio sucursal = listaSedes.get(num);
-        ArrayList<Clase> listaClases = new ArrayList<>();
-        for (Clase claseDisponible : sucursal.getClases()) {
-            if (claseDisponible.getCapacidad()==0 && (sucursal.getLugar().getSuperficieM2()/claseDisponible.getCapacidad())>2) {
-                listaClases.add(claseDisponible);
-                for (Clase clase : alumno.getClases()) {
-                    if (claseDisponible.getHorario().toLocalDate().isEqual(clase.getHorario().toLocalDate())) {
-                        listaClases.remove(claseDisponible);
-                        break;
+            if (clase.getCapacidad()==0 && (sucursal.getLugar().getSuperficieM2() / clase.getCapacidad() ) > 2) {
+                for (Clase clase2 : alumno.getClases()) {
+                    if (!clase.getHorario().toLocalDate().isEqual( clase.getHorario().toLocalDate())) {
+                        listaClases.add(clase);
                     }
                 }
             }
         }
-
-        for (int i = 0; i<listaClases.size(); i++) {
-            System.out.println(i + " - " + listaClases.get(i).toString());
-        }
-        invalido = true;
-        num = -1;
-        input = new Scanner(System.in);
-        do {
-            try {
-                System.out.println("Ingresar el numero de la clase para reservar un lugar o cualquier letra para cancelar");
-                num= Integer.parseInt(input.next());
-                if (0<=num && num<=listaClases.size()) {
-                    invalido = false;
-                    input.reset();
-                }
-                else {
-                    System.out.println("Ingresar un numero válido");
-                    input.reset();
-                }
-            }
-            catch (Exception e) {
-                System.out.println("No se ingreso un numero. Cancelando reserva");
-                return false;
-            }
-        }
-        while (invalido);
-
-        Clase clase = listaClases.get(num);
+        return listaClases;
+    }
+    public boolean reservarClase(String id, Clase clase) {
+        Alumno alumno = buscarAlumno(id);
         alumno.addClase(clase);
         clase.addAlumno(alumno);
-        //clase.actualizar(sucursal) Actualizar rentabilidad de la clase, capacidad...
+        clase.actualizar();         // Actualizar rentabilidad de la clase, capacidad...
         return true;
-    }*/
+    }
     public boolean altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
         if (!profesor.estaDisponible(horario, duracion)) {
             System.out.println("Profesor no disponible");

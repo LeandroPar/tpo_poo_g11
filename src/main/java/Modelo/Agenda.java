@@ -29,4 +29,9 @@ public class Agenda {
     public void addDia(String dia) {
         this.dias.add(dia);
     }
+
+    public void setDias(ArrayList<String> dias) {
+        this.dias = dias;
+    }
+    
 }

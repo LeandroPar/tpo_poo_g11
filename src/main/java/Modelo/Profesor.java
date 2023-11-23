@@ -4,6 +4,7 @@ import jdk.jfr.Timespan;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Profesor {
     private String nombre;
@@ -14,6 +15,13 @@ public class Profesor {
         this.nombre = nombre;
         Sueldo = sueldo;
         this.agenda = new Agenda();
+    }
+    
+    public Profesor(String nombre, int sueldo, ArrayList<String> dias) {
+        this.nombre = nombre;
+        Sueldo = sueldo;
+        this.agenda = new Agenda();
+        this.agenda.setDias(dias);
     }
 
     public int getSueldo() {
@@ -33,6 +41,8 @@ public class Profesor {
     }
 
     public boolean estaDisponible(LocalDateTime horario, LocalTime duracion) {
-        return true;
+    int max = 3;
+    LocalDateTime horarioFinal = horario.plusHours(duracion.getHour() + 3).plusMinutes(duracion.getMinute());
+    return true;
     }
 }

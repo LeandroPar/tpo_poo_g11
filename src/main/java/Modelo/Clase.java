@@ -17,6 +17,8 @@ public class Clase {
     private LocalDateTime horario;
     private LocalTime duracion;
     private ClaseEstado estado;
+    
+    public void actualizar() {};
 
     public void addAlumno(Alumno alumno) {
         this.alumnos.add(alumno);
@@ -65,8 +67,8 @@ public class Clase {
     public String toString() {
         return "Clase de " + ejercicio.toString() +
                 " - Capacidad: " + capacidad +
-                "- Profesor: " + profesor.getNombre() +
-                "- Costo: " + costo +
+                "- Profesor: " + profesor.getNombre() + "\n" +
+                "Costo: " + costo +
                 "- Fecha y hora: " + horario.toString() +
                 "- Duracion: " + duracion;
     }
