@@ -26,6 +26,7 @@ public class SucursalGimnasio {
         this.sedeArticulos = new ArrayList<>();
         this.clases = new ArrayList<>();
         this.profesores = new ArrayList<>();
+        this.grabaciones = new StreamingBD();
     }
 
     public String getSedeNombre() {

@@ -60,6 +60,8 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
         fillerTitleIzq = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jLabel7 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
+        msjConfirmacion = new javax.swing.JLabel();
+        msjError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,6 +102,7 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
         jLabel5.setText("Las sucursales y clases no disponibles no se muestran.");
 
         txtClaseString.setColumns(20);
+        txtClaseString.setLineWrap(true);
         txtClaseString.setRows(5);
         txtClaseString.setAutoscrolls(false);
         jScrollPane1.setViewportView(txtClaseString);
@@ -148,15 +151,22 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
                             .addGap(129, 129, 129)
                             .addComponent(fillerTitleDer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(338, 338, 338)
+                            .addGap(181, 181, 181)
+                            .addComponent(msjError)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(fillerReservarIzq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(fillerReservarDer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReservar)
-                .addGap(247, 247, 247))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnReservar)
+                        .addGap(248, 248, 248))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(msjConfirmacion)
+                        .addGap(207, 207, 207))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,17 +194,25 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
                     .addComponent(comboSucursales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(comboClases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReservar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(msjConfirmacion)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(fillerReservarDer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fillerReservarIzq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnReservar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(40, 40, 40))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fillerReservarDer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fillerReservarIzq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(msjError)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,11 +234,11 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
 
     private void comboSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSucursalesActionPerformed
         this.clases.clear();
+        comboClases.removeAll();
         String sede = comboSucursales.getSelectedItem().toString();
-        ArrayList<Clase> clases = controlador.clasesDisponibles(sede, alumno);
+        clases = controlador.clasesDisponibles(sede, alumno);
         for (Clase clase : clases) {
             comboClases.addItem(clase.getEjercicio().getNombre() + " - " + clase.getHorario().toString());
-            this.clases.add(clase);
         }
         
     }//GEN-LAST:event_comboSucursalesActionPerformed
@@ -229,6 +247,8 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
         int index = comboClases.getSelectedIndex();
         String detalles = clases.get(index).toString();
         txtClaseString.setText(detalles);
+        msjConfirmacion.setText("");
+        msjError.setText("");
     }//GEN-LAST:event_comboClasesActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
@@ -239,7 +259,20 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
         }
         else {
             Clase clase = clases.get(index);
-            //controlador.reservarClase(this.userId, clase);
+            if (controlador.reservarClase(this.alumno, clase)) {
+                msjConfirmacion.setText("Clase reservada exitosamente");
+                comboClases.setSelectedIndex(-1);
+                comboClases.removeAll();
+                this.clases.clear();
+                String sede = comboSucursales.getSelectedItem().toString();
+                clases = controlador.clasesDisponibles(sede, alumno);
+                for (Clase claseFix : clases) {
+                    comboClases.addItem(claseFix.getEjercicio().getNombre() + " - " + claseFix.getHorario().toString());
+                }
+            } else {
+                msjConfirmacion.setText("La clase no se pudo reservar");
+                msjError.setText("La sucursal no cuenta con suficientes articulos");
+            }
         }
     }//GEN-LAST:event_btnReservarActionPerformed
 
@@ -269,6 +302,8 @@ public class AlumnoReservarClase extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel msjConfirmacion;
+    private javax.swing.JLabel msjError;
     private javax.swing.JTextArea txtClaseString;
     // End of variables declaration//GEN-END:variables
 }

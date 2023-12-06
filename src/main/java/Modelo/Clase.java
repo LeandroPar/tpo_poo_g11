@@ -16,7 +16,6 @@ public class Clase {
     private Ejercicio ejercicio;
     private LinkedList<Alumno> alumnos;
     private Profesor profesor;
-    private int costo;
     private LocalDateTime horario;
     private LocalTime duracion;
     private ClaseEstado estado;
@@ -71,7 +70,6 @@ public class Clase {
         this.capacidad = 30;
         this.ejercicio = ejercicio;
         this.alumnos = new LinkedList<>();
-        this.costo = 0;
         this.profesor = profesor;
         this.horario = horario;
         this.duracion = duracion;
@@ -97,10 +95,6 @@ public class Clase {
 
     public Profesor getProfesor() {
         return profesor;
-    }
-
-    public int getCosto() {
-        return costo;
     }
 
     public LocalDateTime getHorario() {
@@ -146,7 +140,6 @@ public class Clase {
                 + "Clase de " + ejercicio.toString() +
                 " - Capacidad: " + capacidad +
                 "- Profesor: " + profesor.getNombre() + "\n" +
-                "Costo: " + costo +
                 "- Fecha y hora: " + horario.toString() +
                 "- Duracion: " + duracion;
     }

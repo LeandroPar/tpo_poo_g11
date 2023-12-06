@@ -84,6 +84,8 @@ public class AlumnoCancelarReserva extends javax.swing.JFrame {
         jLabel5.setText("Detalles de la reserva seleccionada:");
 
         txtClase.setColumns(20);
+        txtClase.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        txtClase.setLineWrap(true);
         txtClase.setRows(5);
         jScrollPane1.setViewportView(txtClase);
 

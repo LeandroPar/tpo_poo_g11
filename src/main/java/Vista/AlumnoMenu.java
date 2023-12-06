@@ -88,7 +88,10 @@ public class AlumnoMenu extends javax.swing.JFrame {
         jLabel2.setText("En esta sección puede ver sus reservas realizadas.");
 
         txtReserva.setColumns(20);
+        txtReserva.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        txtReserva.setLineWrap(true);
         txtReserva.setRows(5);
+        txtReserva.setMaximumSize(new java.awt.Dimension(220, 2147483647));
         jScrollPane1.setViewportView(txtReserva);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -173,11 +176,9 @@ public class AlumnoMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnReservarClase)
-                            .addComponent(btnCancelarReserva))
-                        .addContainerGap(62, Short.MAX_VALUE))
-                    .addGroup(pnlTituloLayout.createSequentialGroup()
-                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnCancelarReserva)))
+                    .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

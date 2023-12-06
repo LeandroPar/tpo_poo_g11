@@ -49,10 +49,11 @@ public class Supertlon {
     }
 
     public boolean altaAlumno(String nombre, String membresia) {
-        Nivel nivel= null;
+        Nivel nivel=null;
         if (membresia.equals("BLACK")) nivel = Nivel.BLACK;
         else if (membresia.equals("ORO")) nivel = Nivel.ORO;
         else if (membresia.equals("PLATINUM")) nivel = Nivel.PLATINUM;
+        
         Alumno alumno = new Alumno(nombre, nivel);
         alumnos.add(alumno);
         login.put(alumno.getId(), "Alumno");
@@ -95,10 +96,20 @@ public class Supertlon {
         return true;
     }
     
-    public boolean altaSucursal(String barrio, Nivel nivel, TipoLugar lugar, double superficieM2, int alquiler) {
+    public boolean altaSucursal(String barrio, String tiponivel, String tipolugar, double superficieM2, int alquiler) {
         for (SucursalGimnasio sucursalGimnasio : sucursales) {
             if (sucursalGimnasio.getSedeNombre().equals(barrio)) return false;
         }
+        Nivel nivel=null;
+        if (tiponivel.equals("BLACK")) nivel=Nivel.BLACK;
+        else if (tipolugar.equals("GOLD")) nivel=Nivel.ORO;
+        else if (tipolugar.equals("PLATINUM")) nivel=Nivel.PLATINUM;
+        
+        TipoLugar lugar=null;
+        if (tipolugar.equals("Pileta")) lugar=TipoLugar.PILETA;
+        else if (tipolugar.equals("Salon")) lugar=TipoLugar.SALON;
+        else if (tipolugar.equals("Aire libre")) lugar=TipoLugar.AIRE_LIBRE;
+        
         sucursales.add(new SucursalGimnasio(barrio, nivel, lugar, superficieM2, alquiler));
         return true;
     }
@@ -139,8 +150,8 @@ public class Supertlon {
         }
         return listaClases;
     }
-    public boolean reservarClase(String sede, Alumno alumno, Clase clase) {
-        SucursalGimnasio sucursal = buscarSucursal(sede);
+    public boolean reservarClase(Alumno alumno, Clase clase) {
+        SucursalGimnasio sucursal = buscarSucursal(clase.getSede());
         String ejercicio = clase.getEjercicio().getNombre();
         int i = 0;
         int size = sucursal.getArticulos().size();
@@ -180,6 +191,7 @@ public class Supertlon {
                     clase.addArticulo(item);
                     sucursalArticulos.remove(item);
                 }
+                break;
             case "Yoga":
                 Articulo colS = null;
                 while (colS==null || i<size) {
@@ -192,6 +204,7 @@ public class Supertlon {
                 if (colS==null) return false;
                 clase.addArticulo(colS);
                 sucursalArticulos.remove(colS);
+                break;
             case "Gimnasia Postural":
                 Articulo colchonetaGim=null;
                 while (colchonetaGim==null || i<size) {
@@ -204,6 +217,7 @@ public class Supertlon {
                 if (colchonetaGim==null) return false;
                 clase.addArticulo(colchonetaGim);
                 sucursalArticulos.remove(colchonetaGim);
+                break;
             case "Kangoo Jumping":
                 Articulo colchonetaKangoo=null;
                 Articulo botasKangoo=null;
@@ -221,6 +235,7 @@ public class Supertlon {
                 clase.addArticulo(botasKangoo);
                 sucursalArticulos.remove(colchonetaKangoo);
                 sucursalArticulos.remove(botasKangoo);
+                break;
             case "Aero Combat":
                 int pesaManoAero=2;
                 ArrayList<Articulo> articulosAero = new ArrayList<>();
@@ -246,6 +261,7 @@ public class Supertlon {
                 }
                 clase.addArticulo(colchonetaAero);
                 sucursalArticulos.remove(colchonetaAero);
+                break;
         }
         alumno.addClase(clase);
         clase.addAlumno(alumno);
@@ -299,6 +315,7 @@ public class Supertlon {
                     clase.getArticulos().remove(item);
                     sucursal.addArticulo(item);
                 }
+                break;
             case "Yoga":
                 Articulo colS = null;
                 while (colS==null || i<size) {
@@ -310,6 +327,7 @@ public class Supertlon {
                 }
                 clase.getArticulos().remove(colS);
                 sucursal.addArticulo(colS);
+                break;
             case "Gimnasia Postural":
                 Articulo colchonetaGim=null;
                 while (colchonetaGim==null || i<size) {
@@ -321,6 +339,7 @@ public class Supertlon {
                 }
                 clase.getArticulos().remove(colchonetaGim);
                 sucursal.addArticulo(colchonetaGim);
+                break;
             case "Kangoo Jumping":
                 Articulo colchonetaKangoo=null;
                 Articulo botasKangoo=null;
@@ -337,6 +356,7 @@ public class Supertlon {
                 clase.getArticulos().remove(botasKangoo);
                 sucursal.addArticulo(colchonetaKangoo);
                 sucursal.addArticulo(botasKangoo);
+                break;
             case "Aero Combat":
                 int pesaManoAero=2;
                 ArrayList<Articulo> articulosAero = new ArrayList<>();
@@ -361,6 +381,7 @@ public class Supertlon {
                 }
                 clase.getArticulos().remove(colchonetaAero);
                 sucursal.addArticulo(colchonetaAero);
+                break;
             }
             clase.actualizar(sucursal);
             return true;
@@ -673,6 +694,7 @@ public class Supertlon {
         return true;
         }
 
+    //metodos de ayuda
     public Alumno buscarAlumno(String id) {
         for (Alumno alum : alumnos) {
             if (alum.getId().equals(id)) return alum;
@@ -682,6 +704,12 @@ public class Supertlon {
     public Administrativo buscarAdministrativo(String id) {
         for (Administrativo admin : admins) {
             if (admin.getId().equals(id)) return admin;
+        }
+        return null;
+    }
+    public SoporteTecnico buscarTecnico(String id) {
+        for (SoporteTecnico tecnico : tecnicos) {
+            if (tecnico.getId().equals(id)) return tecnico;
         }
         return null;
     }

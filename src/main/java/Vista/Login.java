@@ -123,19 +123,19 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
             switch (tipo) {
                 case "Soporte Tecnico":
+                    TecnicoMenu menuTecnico = new TecnicoMenu(controlador.buscarTecnico(id));
+                    menuTecnico.setVisible(true);
+                    menuTecnico.setLocationRelativeTo(null);
                     break;
                 case "Administrativo":
                     MenuAdministrativo menuAdministrador = new MenuAdministrativo(controlador.buscarAdministrativo(id));
                     menuAdministrador.setVisible(true);
                     menuAdministrador.setLocationRelativeTo(null);
-
                     break;
                 case "Alumno":
                     AlumnoMenu menualumno = new AlumnoMenu(controlador.buscarAlumno(id));
                     menualumno.setVisible(true);
                     menualumno.setLocationRelativeTo(null);
-                    break;
-                default:
                     break;
             }
         } else loginreturn.setText("No existe usuario con ID " + id);

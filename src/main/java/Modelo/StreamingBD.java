@@ -17,11 +17,11 @@ public class StreamingBD {
 
     public void addGrabacion(Clase clase) {
         String ejercicio = clase.getEjercicio().getNombre();
-        if (ejercicio=="Yoga") {
+        if (ejercicio.equals("Yoga")) {
             if (this.clasesYoga.size() == this.yogaCapacidad) this.clasesYoga.removeFirst();
             this.clasesYoga.addLast(clase);
         }
-        else if (ejercicio == "Gimnasia Postural") {
+        else if (ejercicio.equals("Gimnasia Postural")) {
             if (this.clasesGimnasia.size() == this.gimnasiaCapacidad) this.clasesGimnasia.removeFirst();
             this.clasesYoga.addLast(clase);
         }
