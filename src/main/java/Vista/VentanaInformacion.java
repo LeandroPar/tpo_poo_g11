@@ -4,6 +4,7 @@
  */
 package Vista;
 import Controlador.Supertlon;
+import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -11,21 +12,16 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 public class VentanaInformacion extends javax.swing.JFrame {
-
     private Supertlon supertlon;
     private String nombre;
-    public VentanaInformacion(String nombre) {
+    private Administrativo admin;
+    
+    public VentanaInformacion(Administrativo admin, String nombre) {
         initComponents();
         supertlon = Supertlon.getInstance();
-        this.nombreSucursal.setText(nombre);
+        this.admin = admin;
+        nombreSucursal.setText(nombre);
         
-        agregarArticulo.setSelected(false);
-        agenda.setSelected(false);
-        bajaCliente.setSelected(false);
-        cargarCliente.setSelected(false);
-        claseStreaming.setSelected(false);
-        gestionarArticulos.setSelected(false);
-        gestionarClase.setSelected(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -183,7 +179,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
        agregarArticulo.addActionListener(new ActionListener(){
 
        public void actionPerformed(ActionEvent  e){
-           VentanaSeleccionarTipoArticulo ventana = new VentanaSeleccionarTipoArticulo();
+           VentanaSeleccionarTipoArticulo ventana = new VentanaSeleccionarTipoArticulo(admin);
            ventana.setVisible(true);
            ventana.setLocationRelativeTo(null);
        }
@@ -194,7 +190,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
     private void cargarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarClienteActionPerformed
         cargarCliente.addActionListener(new ActionListener(){
            public void actionPerformed(ActionEvent e){
-               CargarCliente ventanaCargarCliente = new CargarCliente();
+               CargarCliente ventanaCargarCliente = new CargarCliente(admin);
                ventanaCargarCliente.setVisible(true);
                ventanaCargarCliente.setLocationRelativeTo(null);
            } 
@@ -205,7 +201,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
         claseStreaming.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent e){
-                ClasesStreaming ventanaStreaming = new ClasesStreaming();
+                ClasesStreaming ventanaStreaming = new ClasesStreaming(admin);
                 ventanaStreaming.setVisible(true);
                 ventanaStreaming.setLocationRelativeTo(null);
             }
@@ -216,7 +212,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
     private void bajaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaClienteActionPerformed
         bajaCliente.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                BajaCliente ventanaBajaCliente = new BajaCliente();
+                BajaCliente ventanaBajaCliente = new BajaCliente(admin);
                 ventanaBajaCliente.setVisible(true);
                 ventanaBajaCliente.setLocationRelativeTo(null);
             }
@@ -226,7 +222,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
     private void gestionarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarClaseActionPerformed
         gestionarClase.addActionListener(new ActionListener(){
            public void actionPerformed(ActionEvent e){
-               GestionarClase ventanaGestionarClase = new GestionarClase();
+               GestionarClase ventanaGestionarClase = new GestionarClase(admin);
                ventanaGestionarClase.setVisible(true);
                ventanaGestionarClase.setLocationRelativeTo(null);
            } 
@@ -237,7 +233,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
         agenda.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent e){
-                Agenda ventanaAgenda = new Agenda();
+                Agenda ventanaAgenda = new Agenda(admin);
                 ventanaAgenda.setVisible(true);
                 ventanaAgenda.setLocationRelativeTo(null);
             }
@@ -249,7 +245,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
         gestionarArticulos.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent e){
-                GestionarArticulos ventanaArticulos = new GestionarArticulos();
+                GestionarArticulos ventanaArticulos = new GestionarArticulos(admin);
                 ventanaArticulos.setVisible(true);
                 ventanaArticulos.setLocationRelativeTo(null);   
             }
@@ -257,15 +253,9 @@ public class VentanaInformacion extends javax.swing.JFrame {
     }//GEN-LAST:event_gestionarArticulosActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        botonVolver.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo();
-                ventanaMenu.setVisible(true);
-                ventanaMenu.setLocationRelativeTo(null);
-            }
-            
-        });
+        MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
+        ventanaMenu.setVisible(true);
+        ventanaMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
 

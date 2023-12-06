@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,8 +13,11 @@ import java.awt.event.ActionListener;
  * @author Roman
  */
 public class GestionarArticulos extends javax.swing.JFrame {
-    public GestionarArticulos() {
+    private Administrativo admin;
+    
+    public GestionarArticulos(Administrativo admin) {
         initComponents();
+        this.admin = admin;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -64,7 +68,7 @@ public class GestionarArticulos extends javax.swing.JFrame {
         volverAtras.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo();
+                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
                 ventanaMenu.setVisible(true);
                 ventanaMenu.setLocationRelativeTo(null);
             }

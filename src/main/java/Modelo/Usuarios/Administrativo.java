@@ -15,15 +15,15 @@ public class Administrativo extends Usuario {
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public ArrayList<String> getSedes() {
-        return sedes;
+        return this.sedes;
     }
 
     public void addSede(String nombreSede) {

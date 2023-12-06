@@ -21,6 +21,7 @@ public class Clase {
     private LocalTime duracion;
     private ClaseEstado estado;
     private ArrayList<Articulo> articulos;
+    private String sede;
     
     public void actualizar(SucursalGimnasio sucursal) {
         int costo = 0;
@@ -66,8 +67,21 @@ public class Clase {
         }
     }
 
+    public Clase(Ejercicio ejercicio, Profesor profesor, LocalDateTime horario, LocalTime duracion, String sede) {
+        this.capacidad = 30;
+        this.ejercicio = ejercicio;
+        this.alumnos = new LinkedList<>();
+        this.costo = 0;
+        this.profesor = profesor;
+        this.horario = horario;
+        this.duracion = duracion;
+        this.sede = sede;
+    }
+
+    
     public void addAlumno(Alumno alumno) {
         this.alumnos.add(alumno);
+        this.capacidad--;
     }
     public int getCapacidad() {
         return capacidad;
@@ -117,9 +131,19 @@ public class Clase {
         this.articulos.add(articulo);
     }
 
+    public String getSede() {
+        return sede;
+    }
+
+    public void setSede(String sede) {
+        this.sede = sede;
+    }
+    
+
     @Override
     public String toString() {
-        return "Clase de " + ejercicio.toString() +
+        return "Sede: " + sede + "\n" + ""
+                + "Clase de " + ejercicio.toString() +
                 " - Capacidad: " + capacidad +
                 "- Profesor: " + profesor.getNombre() + "\n" +
                 "Costo: " + costo +

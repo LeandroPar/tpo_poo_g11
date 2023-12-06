@@ -125,13 +125,13 @@ public class Login extends javax.swing.JFrame {
                 case "Soporte Tecnico":
                     break;
                 case "Administrativo":
-                    MenuAdministrativo menuAdministrador = new MenuAdministrativo();
+                    MenuAdministrativo menuAdministrador = new MenuAdministrativo(controlador.buscarAdministrativo(id));
                     menuAdministrador.setVisible(true);
                     menuAdministrador.setLocationRelativeTo(null);
 
                     break;
                 case "Alumno":
-                    MenuAlumno menualumno = new MenuAlumno(id);
+                    AlumnoMenu menualumno = new AlumnoMenu(controlador.buscarAlumno(id));
                     menualumno.setVisible(true);
                     menualumno.setLocationRelativeTo(null);
                     break;

@@ -4,11 +4,15 @@
  */
 package Vista;
 
+import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class BajaCliente extends javax.swing.JFrame {
-    public BajaCliente() {
+    private Administrativo admin;
+    
+    public BajaCliente(Administrativo admin) {
         initComponents();
+        this.admin = admin;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -109,7 +113,7 @@ public class BajaCliente extends javax.swing.JFrame {
             volverAtras.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo();
+                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
                 ventanaMenu.setVisible(true);
                 ventanaMenu.setLocationRelativeTo(null);
             }

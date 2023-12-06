@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,12 +13,13 @@ import java.awt.event.ActionListener;
  * @author Roman
  */
 public class ClasesStreaming extends javax.swing.JFrame {
-
+    private Administrativo admin;
     /**
      * Creates new form ClasesStreaming
      */
-    public ClasesStreaming() {
+    public ClasesStreaming(Administrativo admin) {
         initComponents();
+        this.admin = admin;
     }
 
     /**
@@ -83,7 +85,7 @@ public class ClasesStreaming extends javax.swing.JFrame {
         botonVolver.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo();
+                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
                 ventanaMenu.setVisible(true);
                 ventanaMenu.setLocationRelativeTo(null);
             }

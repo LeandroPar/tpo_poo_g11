@@ -5,15 +5,19 @@
 package Vista;
 
 import Controlador.Supertlon;
+import Modelo.Usuarios.Administrativo;
 import Modelo.enums.Nivel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CargarCliente extends javax.swing.JFrame {
     private Supertlon controlador;
-    public CargarCliente() {
+    private Administrativo admin;
+    
+    public CargarCliente(Administrativo admin) {
         initComponents();
         controlador = Supertlon.getInstance();
+        this.admin = admin;
         membresia.addItem("BLACK");
         membresia.addItem("ORO");
         membresia.addItem("PLATINUM");
@@ -128,7 +132,7 @@ public class CargarCliente extends javax.swing.JFrame {
         botonVolver.addActionListener(new ActionListener(){
         
             public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo();
+                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
                 ventanaMenu.setVisible(true);
                 ventanaMenu.setLocationRelativeTo(null);
             }

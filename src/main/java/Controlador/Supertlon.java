@@ -8,6 +8,7 @@ import Modelo.Usuarios.*;
 import Modelo.enums.Nivel;
 import Modelo.enums.TipoLugar;
 import Modelo.enums.UsoPesa;
+import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -58,7 +59,6 @@ public class Supertlon {
         System.out.println("Alumno agregado");
         return true;
     }
-
     public boolean bajaAlumno(String id) {
         for (Alumno alumno: alumnos) {
             if (alumno.getId().equals(id)) {
@@ -102,18 +102,6 @@ public class Supertlon {
         sucursales.add(new SucursalGimnasio(barrio, nivel, lugar, superficieM2, alquiler));
         return true;
     }
-    private Alumno buscarAlumno(String id) {
-        for (Alumno alum : alumnos) {
-            if (alum.getId().equals(id)) return alum;
-        }
-        return null;
-    }
-    private SucursalGimnasio buscarSucursal(String sede) {
-        for (SucursalGimnasio sucursal : sucursales) {
-            if (sucursal.getSedeNombre().equals(sede)) return sucursal;
-        }
-        return null;
-    }
 
     public boolean altaProfesor(String nombreProfesor, int sueldoProfesor, String sedesucursal) {
         Profesor profe = new Profesor(nombreProfesor, sueldoProfesor);
@@ -127,8 +115,7 @@ public class Supertlon {
     }
     
     //metodo auxiliar para reserva de clase
-    public ArrayList<String> sucursalesDisponibles(String userId) {
-        Alumno alumno = buscarAlumno(userId);
+    public ArrayList<String> sucursalesDisponibles(Alumno alumno) {
         ArrayList<String> listaSedes = new ArrayList<>();
         for (SucursalGimnasio sucursalDisponible : sucursales) {
             if ( (alumno.getMembresia().compareTo( sucursalDisponible.getNivel()) >=0 ) ) {
@@ -138,8 +125,7 @@ public class Supertlon {
         return listaSedes;
     }
     //metodo auxiliar para reserva de clase
-    public ArrayList<Clase> clasesDisponibles(String sede, String userId) {
-        Alumno alumno = buscarAlumno(userId);
+    public ArrayList<Clase> clasesDisponibles(String sede, Alumno alumno) {
         SucursalGimnasio sucursal = buscarSucursal(sede);
         ArrayList<Clase> listaClases = new ArrayList<>();
         for (Clase clase : sucursal.getClases()) {
@@ -153,8 +139,7 @@ public class Supertlon {
         }
         return listaClases;
     }
-    public boolean reservarClase(String sede, String id, Clase clase) {
-        Alumno alumno = buscarAlumno(id);
+    public boolean reservarClase(String sede, Alumno alumno, Clase clase) {
         SucursalGimnasio sucursal = buscarSucursal(sede);
         String ejercicio = clase.getEjercicio().getNombre();
         int i = 0;
@@ -193,6 +178,7 @@ public class Supertlon {
                 if (pesaMano!=0 || pesaTobillera !=0 || pesaDisco !=0) return false;
                 for (Articulo item : articulos) {
                     clase.addArticulo(item);
+                    sucursalArticulos.remove(item);
                 }
             case "Yoga":
                 Articulo colS = null;
@@ -205,6 +191,7 @@ public class Supertlon {
                 }
                 if (colS==null) return false;
                 clase.addArticulo(colS);
+                sucursalArticulos.remove(colS);
             case "Gimnasia Postural":
                 Articulo colchonetaGim=null;
                 while (colchonetaGim==null || i<size) {
@@ -216,6 +203,7 @@ public class Supertlon {
                 }
                 if (colchonetaGim==null) return false;
                 clase.addArticulo(colchonetaGim);
+                sucursalArticulos.remove(colchonetaGim);
             case "Kangoo Jumping":
                 Articulo colchonetaKangoo=null;
                 Articulo botasKangoo=null;
@@ -231,6 +219,8 @@ public class Supertlon {
                 if (colchonetaKangoo==null || botasKangoo==null) return false;
                 clase.addArticulo(colchonetaKangoo);
                 clase.addArticulo(botasKangoo);
+                sucursalArticulos.remove(colchonetaKangoo);
+                sucursalArticulos.remove(botasKangoo);
             case "Aero Combat":
                 int pesaManoAero=2;
                 ArrayList<Articulo> articulosAero = new ArrayList<>();
@@ -250,14 +240,133 @@ public class Supertlon {
                 i++;    
                 }
                 if (colchonetaAero==null || pesaManoAero==0) return false;
-                for (Articulo articuloAero : articulosAero) clase.addArticulo(articuloAero);
+                for (Articulo articuloAero : articulosAero) { 
+                    clase.addArticulo(articuloAero);
+                    sucursalArticulos.remove(articuloAero);
+                }
                 clase.addArticulo(colchonetaAero);
+                sucursalArticulos.remove(colchonetaAero);
         }
         alumno.addClase(clase);
         clase.addAlumno(alumno);
         clase.actualizar(sucursal);         // Actualizar rentabilidad de la clase, capacidad...
         return true;
     }
+    //Metodo para cancelar clase
+    public boolean cancelarReservarClase(Alumno alumno, Clase clase) {
+        if (LocalDate.now().equals(clase.getHorario().toLocalDate())) {
+            return false;
+        }
+        else {
+            alumno.getClases().remove(clase);
+            clase.getAlumnos().remove(alumno);
+            SucursalGimnasio sucursal = buscarSucursal(clase.getSede());
+            ArrayList<Articulo> sucursalArticulos = sucursal.getArticulos();
+            String ejercicio = clase.getEjercicio().getNombre();
+            int i=0;
+            int size = clase.getArticulos().size();
+            switch (ejercicio) {
+            case "Crossfit":
+                ArrayList<Articulo> articulos = new ArrayList<>();
+                int pesaMano = 2;
+                int pesaTobillera = 2;
+                int pesaDisco= 1;
+                while ((pesaMano!=0 || pesaTobillera!= 0 || pesaDisco != 0) ) {
+                    Articulo articulo = clase.getArticulos().get(i);
+                    if (articulo.getId()==4 || articulo.getId()==5) {
+                        Pesa pesa = (Pesa)articulo;
+                        switch (pesa.getUso()) {
+                            case DE_MANO:
+                                if (pesaMano!=0) {
+                                    pesaMano--;
+                                    articulos.add(articulo);
+                                }
+                            case TOBILLERAS:    
+                                if (pesaTobillera!=0) {
+                                    pesaTobillera--;
+                                    articulos.add(pesa);
+                                }
+                            case DISCOS:
+                                if (pesaDisco!=0) {
+                                    pesaDisco--;
+                                    articulos.add(pesa);
+                                }
+                        }
+                    }
+                i++;    
+                }
+                for (Articulo item : articulos) {
+                    clase.getArticulos().remove(item);
+                    sucursal.addArticulo(item);
+                }
+            case "Yoga":
+                Articulo colS = null;
+                while (colS==null || i<size) {
+                    Articulo articulo = clase.getArticulos().get(i);
+                    if (articulo.getId()==1) {
+                        colS= articulo;
+                    }
+                    i++;
+                }
+                clase.getArticulos().remove(colS);
+                sucursal.addArticulo(colS);
+            case "Gimnasia Postural":
+                Articulo colchonetaGim=null;
+                while (colchonetaGim==null || i<size) {
+                    Articulo articulo = clase.getArticulos().get(i);
+                    if (articulo.getId()==1) {
+                        colchonetaGim= articulo;
+                    }
+                    i++;
+                }
+                clase.getArticulos().remove(colchonetaGim);
+                sucursal.addArticulo(colchonetaGim);
+            case "Kangoo Jumping":
+                Articulo colchonetaKangoo=null;
+                Articulo botasKangoo=null;
+                while ((colchonetaKangoo==null || botasKangoo==null) || i<size) {
+                    Articulo articulo = clase.getArticulos().get(i);
+                    if (articulo.getId()==1) colchonetaKangoo= articulo;
+                    if (articulo.getId()==3) {
+                        Accesorio accesorio = (Accesorio)articulo;
+                        if (accesorio.getNombre().equals("Botas Kangoo")) botasKangoo=articulo;
+                    }
+                    i++;
+                }
+                clase.getArticulos().remove(colchonetaKangoo);
+                clase.getArticulos().remove(botasKangoo);
+                sucursal.addArticulo(colchonetaKangoo);
+                sucursal.addArticulo(botasKangoo);
+            case "Aero Combat":
+                int pesaManoAero=2;
+                ArrayList<Articulo> articulosAero = new ArrayList<>();
+                Articulo colchonetaAero = null;
+                while ((pesaManoAero!=0 || colchonetaAero==null) && i < size ) {
+                    Articulo articulo = clase.getArticulos().get(i);
+                    if (articulo.getId()==1 || articulo.getId()==4 || articulo.getId()==5) {
+                        if (articulo.getId()==1) colchonetaAero= articulo;
+                        else {
+                            Pesa pesaAero = (Pesa)articulo;
+                            if (pesaAero.getUso()==UsoPesa.DE_MANO) {
+                                articulosAero.add(articulo);
+                                pesaManoAero--;
+                            }
+                        }
+                    }
+                i++;    
+                }
+                for (Articulo articuloAero : articulosAero) {
+                    clase.getArticulos().remove(articuloAero);
+                    sucursal.addArticulo(articuloAero);
+                }
+                clase.getArticulos().remove(colchonetaAero);
+                sucursal.addArticulo(colchonetaAero);
+            }
+            clase.actualizar(sucursal);
+            return true;
+        }
+    }
+    
     public String altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
         String msj = profesor.estaDisponible(horario, duracion);
         if (!msj.equals("Profesor disponible")) {
@@ -564,11 +673,26 @@ public class Supertlon {
         return true;
         }
 
-    public ArrayList<SucursalGimnasio> getSucursales() {
-        return sucursales;
+    public Alumno buscarAlumno(String id) {
+        for (Alumno alum : alumnos) {
+            if (alum.getId().equals(id)) return alum;
+        }
+        return null;
     }
-
-     public ArrayList<String> getNombresSucursales(){
+    public Administrativo buscarAdministrativo(String id) {
+        for (Administrativo admin : admins) {
+            if (admin.getId().equals(id)) return admin;
+        }
+        return null;
+    }
+    public SucursalGimnasio buscarSucursal(String sede) {
+        for (SucursalGimnasio sucursal : sucursales) {
+            if (sucursal.getSedeNombre().equals(sede)) return sucursal;
+        }
+        return null;
+    }
+    public ArrayList<SucursalGimnasio> getSucursales() {return sucursales;}
+    public ArrayList<String> getNombresSucursales(){
         ArrayList<SucursalGimnasio> sucursales = getSucursales();
         ArrayList<String> nombres = new ArrayList<String>();
         for(SucursalGimnasio sucursal : sucursales){
@@ -576,15 +700,7 @@ public class Supertlon {
         }
         return nombres;
      }
-
-    public ArrayList<Alumno> getAlumnos() {
-        return alumnos;
-    }
-    public ArrayList<Articulo> getArticulos() {
-        return articulos;
-    }
-
-    public HashMap<String, String> getLogin() {
-        return login;
-    }
+    public ArrayList<Alumno> getAlumnos() {return alumnos;}
+    public ArrayList<Articulo> getArticulos() {return articulos;}
+    public HashMap<String, String> getLogin() {return login;}
 }

@@ -26,6 +26,8 @@ public class Poo_gui_g11 {
             lista.add("San Lorenzo");
             lista.add("Nunez");
             controller.altaAdministrativo("Jorgito", lista);
+            ArrayList<String> lista2 = new ArrayList<>();
+            controller.altaAdministrativo("Jorgelin", lista2);
             controller.altaAlumno("Jose", "ORO");
             controller.altaSoporte("Marquito");
             controller.altaSucursal("Palermo", Nivel.ORO, TipoLugar.SALON, 25, 15000);
