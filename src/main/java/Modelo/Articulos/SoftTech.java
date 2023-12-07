@@ -2,12 +2,14 @@ package Modelo.Articulos;
 
 import Modelo.GenerarId;
 import Modelo.enums.Amortizacion;
+import java.time.LocalDate;
 
 public class SoftTech extends Colchoneta{
     private double ancho;
     private double largo;
     private int desgaste;
     private Amortizacion amortizacion;
+    private LocalDate fabricacion;
     private String nombre;
     private String id;
     private String itemId;
@@ -20,6 +22,7 @@ public class SoftTech extends Colchoneta{
         this.nombre = "Colchoneta liviana SoftTech";
         this.id = "1";
         this.itemId = GenerarId.generarItemId();
+        this.fabricacion = LocalDate.of(2023, 10, 20);
     }
 
     public int getDesgaste() {

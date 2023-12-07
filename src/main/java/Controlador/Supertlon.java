@@ -5,7 +5,6 @@ import Modelo.Clase;
 import Modelo.Profesor;
 import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.*;
-import Modelo.enums.ClaseEstado;
 import Modelo.enums.Modalidad;
 import Modelo.enums.Nivel;
 import Modelo.enums.TipoLugar;
@@ -17,7 +16,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Supertlon {
@@ -410,8 +408,20 @@ public class Supertlon {
         return "Clase agendada exitosamente";
     }
 
-    public void transicionarClase() {
-        return;
+    public int transicionarClase(SucursalGimnasio sucursal, Clase clase) {
+        int eliminados=0;
+        for (Alumno alumno : clase.getAlumnos()) {
+            alumno.removeClase(clase);
+        }
+        for (Articulo articulo : clase.getArticulos()) {
+            if (articulo.amortizar(sucursal)) {
+                eliminados++;
+            }
+        }
+        if (clase.getEjercicio().getModalidad().equals(Modalidad.ONLINE)) {
+            sucursal.getGrabaciones().addGrabacion(clase);
+        }
+        return eliminados;
     }
     public LinkedList<Clase> monitorearStreaming(SucursalGimnasio sucursal, String ejercicio) {
         LinkedList<Clase> grabaciones = null;
