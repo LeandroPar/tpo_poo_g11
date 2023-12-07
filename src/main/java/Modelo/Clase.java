@@ -1,7 +1,7 @@
 package Modelo;
 
 import Modelo.Articulos.Articulo;
-import Modelo.Ejercicios.Ejercicio;
+import Modelo.Ejercicios.*;
 import Modelo.Usuarios.Alumno;
 import Modelo.enums.Amortizacion;
 import Modelo.enums.ClaseEstado;
@@ -63,9 +63,25 @@ public class Clase {
         }
     }
 
-    public Clase(Ejercicio ejercicio, Profesor profesor, LocalDateTime horario, LocalTime duracion, String sede) {
+    public Clase(String ejercicio, Profesor profesor, LocalDateTime horario, LocalTime duracion, String sede) {
         this.capacidad = 30;
-        this.ejercicio = ejercicio;
+        switch (ejercicio) {
+            case "Crossfit": 
+                this.ejercicio = new Crossfit();
+                break;
+            case "Yoga": 
+                this.ejercicio = new Yoga();
+                break;
+            case "Kangoo Jumping": 
+                this.ejercicio = new KangooJumping();
+                break;
+            case "Gimnasia Postural": 
+                this.ejercicio = new GimnasiaPostural();
+                break;
+            case "Aero Combat":
+                this.ejercicio = new AeroCombat();
+                break;
+        }
         this.alumnos = new LinkedList<>();
         this.profesor = profesor;
         this.horario = horario;

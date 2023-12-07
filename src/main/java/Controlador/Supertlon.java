@@ -396,37 +396,18 @@ public class Supertlon {
         }
     }
     
-    public String altaClase(int costo, LocalDateTime horario, LocalTime duracion, Profesor profesor, String userId) {
+    public String altaClase(LocalDateTime horario, LocalTime duracion, String ejercicio, Profesor profesor, SucursalGimnasio sucursal) {
         String msj = profesor.estaDisponible(horario, duracion);
         if (!msj.equals("Profesor disponible")) {
             return msj;
         }
-        else {
-            Administrativo administrativo=null;
-            Scanner input = new Scanner(System.in);
-            for (Administrativo admin : admins){
-                if (admin.getId().equals(userId)) administrativo=admin;
-            }
-            System.out.println("Ingresar nombre de la sede donde se agendará la clase, o ingresar 0 para cancelar: ");
-            String sede = input.nextLine();
-            while (!administrativo.getSedes().contains(sede) | !sede.equals("0")) {
-                System.out.println("El barrio ingresado no pertenece a alguna sede bajo su control: ");
-                System.out.println("Ingresar nombre de la sede donde se agendará la clase, o ingresar 0 para cancelar: ");
-                sede = input.nextLine();
-            }
-
-            if (sede.equals("0")) return "Cancelado";
-            SucursalGimnasio sucursal= null;
-            for (SucursalGimnasio s : sucursales) {
-                if (s.getSedeNombre().equals(sede)) {
-                    sucursal = s;
-                }
-            }
-            if (sucursal.colisionHorario(horario, duracion)) {
-                return "Ya hay otra clase en ese horario";
-            }
+        if (sucursal.colisionHorario(horario, duracion)) {
+            return "Ya hay otra clase en ese horario";
         }
-        return "Clase registrada";
+        Clase clase = new Clase(ejercicio, profesor, horario, duracion, sucursal.getSedeNombre());
+        profesor.addClase(clase);
+        sucursal.addClase(clase);
+        return "Clase agendada exitosamente";
     }
 
     public void transicionarClase() {

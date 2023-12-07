@@ -5,10 +5,15 @@
 package Vista;
 
 import Controlador.Supertlon;
+import Modelo.Profesor;
 import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +23,7 @@ public class AgendarClase extends javax.swing.JFrame {
     private Supertlon controlador;
     private Administrativo admin;
     private SucursalGimnasio sucursal;
+    private ArrayList<Profesor> profesores;
     
     /**
      * Creates new form Agenda
@@ -27,6 +33,11 @@ public class AgendarClase extends javax.swing.JFrame {
         controlador = Supertlon.getInstance();
         this.admin = admin;
         this.sucursal = sucursal;
+        txtSucursal.setText(sucursal.getSedeNombre());
+        profesores = sucursal.getProfesores();
+        for (Profesor profesor : profesores) {
+            comboProfesores.addItem(profesor.getNombre());
+        }        
     }
 
     /**
@@ -40,6 +51,29 @@ public class AgendarClase extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         botonVolver = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        comboEjercicio = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtSucursal = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        comboProfesores = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtFechaMinutos = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtFechaHora = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtFechaAnio = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtFechaMes = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtFechaDia = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtDuracionMinutos = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtDuracionHora = new javax.swing.JTextField();
+        btnAgendarClase = new javax.swing.JButton();
+        msjConfirmacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,19 +84,160 @@ public class AgendarClase extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Agendar Clase");
+
+        comboEjercicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crossfit", "Yoga", "Kangoo Jumping", "Gimnasia Postural", "Aero Combat" }));
+
+        jLabel2.setText("Ejercicio:");
+
+        txtSucursal.setText("txtSucursal");
+
+        jLabel4.setText("Sucursal:");
+
+        jLabel5.setText("Profesor:");
+
+        jLabel6.setText("Fecha y hora (DD/MM/YYYY - hh:mm) :");
+
+        jLabel7.setText(":");
+
+        txtFechaHora.setAutoscrolls(false);
+        txtFechaHora.setMaximumSize(new java.awt.Dimension(31, 24));
+        txtFechaHora.setPreferredSize(new java.awt.Dimension(31, 24));
+
+        jLabel8.setText("-");
+
+        jLabel9.setText("/");
+
+        jLabel10.setText("/");
+
+        jLabel11.setText("Duracion (hh:mm):");
+
+        jLabel12.setText(":");
+
+        btnAgendarClase.setText("Agendar Clase");
+        btnAgendarClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarClaseActionPerformed(evt);
+            }
+        });
+
+        msjConfirmacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(botonVolver)
-                .addGap(0, 328, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(msjConfirmacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtSucursal))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(comboEjercicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(comboProfesores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(49, 49, 49)
+                                                .addComponent(txtFechaDia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtFechaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtFechaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, Short.MAX_VALUE)
+                                                .addComponent(jLabel8))
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(txtFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel7))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(txtDuracionHora)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel12)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtDuracionMinutos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                                            .addComponent(txtFechaMinutos, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addGap(51, 51, 51))))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(149, 149, 149)
+                .addComponent(btnAgendarClase)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(botonVolver)
-                .addGap(0, 277, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonVolver)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSucursal)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboEjercicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboProfesores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFechaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(txtFechaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtFechaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtFechaDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDuracionMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtDuracionHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnAgendarClase)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(msjConfirmacion)
+                .addGap(0, 37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -73,28 +248,70 @@ public class AgendarClase extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        botonVolver.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
-                ventanaMenu.setVisible(true);
-                ventanaMenu.setLocationRelativeTo(null);
-            }
-            
-        });
+        VentanaInformacion ventanaMenu = new VentanaInformacion(admin, sucursal);
+        ventanaMenu.setVisible(true);
+        ventanaMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
+
+    private void btnAgendarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarClaseActionPerformed
+        // TODO add your handling code here:
+        if (comboProfesores.getSelectedIndex()==-1) {
+            msjConfirmacion.setText("No hay un profesor seleccionado para la clase");
+        } 
+        else {
+            Profesor profesor = profesores.get(comboProfesores.getSelectedIndex());
+            String ejercicio = comboEjercicio.getSelectedItem().toString();
+            msjConfirmacion.setText("Ingrese datos validos para la fecha, hora y/o duracion");
+            int fechaDia = Integer.parseInt(txtFechaDia.getText());
+            int fechaMes = Integer.parseInt(txtFechaMes.getText());
+            int fechaAnio = Integer.parseInt(txtFechaAnio.getText());
+            int fechaHora = Integer.parseInt(txtFechaHora.getText());
+            int fechaMinuto = Integer.parseInt(txtFechaMinutos.getText());
+            int duracionHora = Integer.parseInt(txtDuracionHora.getText());
+            int duracionMinuto = Integer.parseInt(txtDuracionMinutos.getText());
+            LocalDateTime fecha = LocalDateTime.of(fechaAnio, fechaMes, fechaDia, fechaHora, fechaMinuto);
+            LocalTime duracion = LocalTime.of(duracionHora,duracionMinuto);
+            String resultado = controlador.altaClase(fecha, duracion, ejercicio, profesor, sucursal);
+            msjConfirmacion.setText(resultado);
+        }
+    }//GEN-LAST:event_btnAgendarClaseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonVolver;
+    private javax.swing.JButton btnAgendarClase;
+    private javax.swing.JComboBox<String> comboEjercicio;
+    private javax.swing.JComboBox<String> comboProfesores;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel msjConfirmacion;
+    private javax.swing.JTextField txtDuracionHora;
+    private javax.swing.JTextField txtDuracionMinutos;
+    private javax.swing.JTextField txtFechaAnio;
+    private javax.swing.JTextField txtFechaDia;
+    private javax.swing.JTextField txtFechaHora;
+    private javax.swing.JTextField txtFechaMes;
+    private javax.swing.JTextField txtFechaMinutos;
+    private javax.swing.JLabel txtSucursal;
     // End of variables declaration//GEN-END:variables
 }

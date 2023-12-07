@@ -12,6 +12,7 @@ Vista\AlumnoReservarClase.class
 Modelo\enums\Modalidad.class
 Vista\BajaCliente$3.class
 Vista\AlumnoCancelarReserva$3.class
+Vista\GestionarArticulos$3.class
 Vista\TecnicoCargarUsuarios$1.class
 Vista\MenuAdministrativo$2.class
 Poo_gui_g11.class
