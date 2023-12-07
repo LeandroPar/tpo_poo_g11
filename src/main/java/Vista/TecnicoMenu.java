@@ -41,6 +41,7 @@ public class TecnicoMenu extends javax.swing.JFrame {
         btnCargarUsuarios = new javax.swing.JButton();
         btnCargarSedes = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        cargarArticulo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +75,13 @@ public class TecnicoMenu extends javax.swing.JFrame {
             }
         });
 
+        cargarArticulo.setText("Cargar Articulo");
+        cargarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarArticuloActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -84,18 +92,23 @@ public class TecnicoMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(msjBienvenido)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(64, 64, 64)
-                            .addComponent(btnCargarUsuarios)
-                            .addGap(108, 108, 108)
-                            .addComponent(btnCargarSedes)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel2)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(msjBienvenido)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(64, 64, 64)
+                                    .addComponent(btnCargarUsuarios)
+                                    .addGap(108, 108, 108)
+                                    .addComponent(btnCargarSedes)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(247, 247, 247)
+                        .addComponent(cargarArticulo)))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -119,7 +132,9 @@ public class TecnicoMenu extends javax.swing.JFrame {
                         .addGap(168, 168, 168))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(176, 176, 176))))
+                        .addGap(75, 75, 75)
+                        .addComponent(cargarArticulo)
+                        .addGap(78, 78, 78))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,10 +175,18 @@ public class TecnicoMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCargarSedesActionPerformed
 
+    private void cargarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarArticuloActionPerformed
+        TecnicoCargarArticulos cargar = new TecnicoCargarArticulos(tecnico);
+        cargar.setVisible(true);
+        cargar.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_cargarArticuloActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarSedes;
     private javax.swing.JButton btnCargarUsuarios;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton cargarArticulo;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

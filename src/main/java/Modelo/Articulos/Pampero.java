@@ -64,6 +64,14 @@ public class Pampero extends Colchoneta{
     public void setItemId(String itemId) {
         this.itemId = itemId;
     }
+
+    public LocalDate getFabricacion() {
+        return fabricacion;
+    }
+
+    public void setFabricacion(LocalDate fabricacion) {
+        this.fabricacion = fabricacion;
+    }
 }
 
 

@@ -10,7 +10,7 @@ public class IronMan extends Pesa{
     private Amortizacion amortizacion;
     private LocalDate fabricacion;
     private String nombre;
-    private int id;
+    private String id;
     private String itemId;
 
     public IronMan(UsoPesa uso) {
@@ -19,7 +19,7 @@ public class IronMan extends Pesa{
         this.amortizacion = Amortizacion.POR_FECHA_FABRICACION;
         this.desgaste = 200;
         this.nombre = "Mancuerna de Tobillo de 2.5Kg IronMan";
-        this.id = 4;
+        this.id = "4";
         this.itemId = GenerarId.generarItemId();
         this.fabricacion = LocalDate.of(2023, 10, 20);
     }
@@ -47,4 +47,29 @@ public class IronMan extends Pesa{
     public String getNombre() {
         return nombre;
     }
+
+    public LocalDate getFabricacion() {
+        return fabricacion;
+    }
+
+    public void setFabricacion(LocalDate fabricacion) {
+        this.fabricacion = fabricacion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+    
 }

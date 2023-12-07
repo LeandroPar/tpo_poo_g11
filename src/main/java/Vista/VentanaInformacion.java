@@ -187,7 +187,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarArticuloActionPerformed
-        VentanaSeleccionarTipoArticulo ventana = new VentanaSeleccionarTipoArticulo(admin, sucursal);
+        VentanaSeleccionarTipoArticulo_1 ventana = new VentanaSeleccionarTipoArticulo_1(admin, sucursal);
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
         this.dispose();

@@ -58,6 +58,15 @@ public class Gadnic extends Pesa{
     public String getId() {
         return id;
     }
+
+    public LocalDate getFabricacion() {
+        return fabricacion;
+    }
+
+    public void setFabricacion(LocalDate fabricacion) {
+        this.fabricacion = fabricacion;
+    }
+    
     
     
 }

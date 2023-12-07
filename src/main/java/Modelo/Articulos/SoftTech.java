@@ -56,5 +56,13 @@ public class SoftTech extends Colchoneta{
     public String getItemId() {
         return itemId;
     }
+
+    public LocalDate getFabricacion() {
+        return fabricacion;
+    }
+
+    public void setFabricacion(LocalDate fabricacion) {
+        this.fabricacion = fabricacion;
+    }
     
 }

@@ -472,82 +472,42 @@ public class Supertlon {
         }
         return false;
     }
-    public boolean cargarArticulos() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Artículos Disponibles: ");
-        System.out.println("1 - SoftTech");
-        System.out.println("2 - Pampero");
-        System.out.println("3 - Accesorios");
-        System.out.println("4 - IronMan");
-        System.out.println("5 - GadNic");
-
-        boolean invalido=true;
-        int opcion=-1;
-        int cantidad;
-        do {
-            try {
-                System.out.println("Ingresar el numero del accesorio a cargar o cualquier letra para cancelar");
-                opcion = Integer.parseInt(input.next());
-                System.out.println("Ingresar la cantidad de articulos a cargar: ");
-                cantidad = Integer.parseInt(input.next());
-                if (1<=opcion && opcion<=5 && cantidad>=0) {
-                    invalido = false;
-                    input.reset();
+    public void cargarArticulos(String articuloId, int cantidad, String usoPesa, String accesorio) {
+        switch (articuloId) {
+            case "1":
+                for (int i=0; i<cantidad; i++) {
+                    articulos.add(new SoftTech());
                 }
-                else {
-                    System.out.println("Ingresar un numero válido");
-                    input.reset();
+                break;
+            case "2":
+                for (int i=0; i<cantidad;i++) {
+                    articulos.add(new Pampero());
                 }
-            }
-            catch (Exception e) {
-                System.out.println("No se ingreso un numero. Cancelando reserva");
-                return false;
-            }
-        } while (invalido);
-        if (opcion==1) {
-            for (int i=0; i<cantidad; i++) {
-                articulos.add(new SoftTech());
-            }
-        } else if (opcion == 2) {
-            for (int i = 0; i <cantidad; i++) {
-                articulos.add(new Pampero());
-            }
-        } else if (opcion == 3) {
-            for (int i = 0; i <cantidad; i++) {
-                System.out.println("Ingresar nombre del articulo: ");
-                String accesorio = input.nextLine();
-                articulos.add(new Accesorio(accesorio));
-            }
-        }else if (opcion == 4) {
-            System.out.println("Ingresar uso del articulo (De mano, Tobilleras, Discos: ");
-            String uso = input.nextLine();
-            while (!uso.equals("De mano") || !uso.equals("Tobilleras") || !uso.equals("Discos")) {
-                System.out.println("Ingresar uso válido del articulo (De mano, Tobilleras, Discos: ");
-                uso = input.nextLine();
-            }
-            UsoPesa usopesa;
-            if (uso.equals("De mano")) usopesa=UsoPesa.DE_MANO;
-            else if (uso.equals("Tobilleras")) usopesa=UsoPesa.TOBILLERAS;
-            else usopesa=UsoPesa.DISCOS;
-            for (int i = 0; i <cantidad; i++) {
-                articulos.add(new IronMan(usopesa));
-            }
-        }else {
-            System.out.println("Ingresar uso del artículo: ");
-            String uso = input.nextLine();
-            while(!uso.equals("De mano") || !uso.equals("Tobillera") || !uso.equals("Discos")){
-                System.out.println("Ingresar uso valido del articulo (De mano, Tobilleras, Discos)");
-                uso = input.nextLine();
-            }
-            UsoPesa usopesa;
-            if (uso.equals("De mano")) usopesa = UsoPesa.DE_MANO;
-            else if(uso.equals("Tobilleras")) usopesa = UsoPesa.TOBILLERAS;
-            else usopesa = UsoPesa.DISCOS;
-            for (int i = 0; i <cantidad; i++) {
-                articulos.add(new Gadnic(usopesa));
-            }
+                break;
+            case "3":
+                for (int i=0; i<cantidad; i++) {
+                    articulos.add(new Accesorio(accesorio));
+                }
+                break;
+            case "4":
+                UsoPesa uso4;
+                if (usoPesa.equals("De Mano")) uso4=UsoPesa.DE_MANO;
+                else if (usoPesa.equals("Tobilleras")) uso4 = UsoPesa.TOBILLERAS;
+                else uso4 = UsoPesa.DISCOS;
+                for (int i=0; i<cantidad; i++) {
+                    articulos.add(new IronMan(uso4));
+                }
+                break;
+            case "5":
+                UsoPesa uso5;
+                if (usoPesa.equals("De Mano")) uso5=UsoPesa.DE_MANO;
+                else if (usoPesa.equals("Tobilleras")) uso5 = UsoPesa.TOBILLERAS;
+                else uso5 = UsoPesa.DISCOS;
+                for (int i=0; i<cantidad; i++) {
+                    articulos.add(new IronMan(uso5));
+                }
+                break;
         }
-        return true;
     }
 
     public String añadirArticulosASede(SucursalGimnasio sucursal, String articuloId, String cantidad){
