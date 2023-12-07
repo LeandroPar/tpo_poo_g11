@@ -5,6 +5,8 @@ import Modelo.Clase;
 import Modelo.Profesor;
 import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.*;
+import Modelo.enums.ClaseEstado;
+import Modelo.enums.Modalidad;
 import Modelo.enums.Nivel;
 import Modelo.enums.TipoLugar;
 import Modelo.enums.UsoPesa;
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -114,15 +117,10 @@ public class Supertlon {
         return true;
     }
 
-    public boolean altaProfesor(String nombreProfesor, int sueldoProfesor, String sedesucursal) {
+    public boolean altaProfesor(String nombreProfesor, int sueldoProfesor, SucursalGimnasio sucursal) {
         Profesor profe = new Profesor(nombreProfesor, sueldoProfesor);
-        for (SucursalGimnasio sucursal : sucursales) {
-            if (sucursal.getSedeNombre().equals(sedesucursal)){
-                sucursal.addProfesor(profe);
-                return true;
-            }
-        }
-        return false;
+        sucursal.addProfesor(profe);
+        return true;
     }
     
     //metodo auxiliar para reserva de clase
@@ -140,133 +138,143 @@ public class Supertlon {
         SucursalGimnasio sucursal = buscarSucursal(sede);
         ArrayList<Clase> listaClases = new ArrayList<>();
         for (Clase clase : sucursal.getClases()) {
-            if (clase.getCapacidad()==0 && (sucursal.getLugar().getSuperficieM2() / clase.getCapacidad() ) > 2) {
-                for (Clase clase2 : alumno.getClases()) {
-                    if (!clase.getHorario().toLocalDate().isEqual( clase.getHorario().toLocalDate())) {
-                        listaClases.add(clase);
-                    }
+            for (Clase clase2 : alumno.getClases()) {
+                if ( !clase.getHorario().toLocalDate().isEqual( clase.getHorario().toLocalDate()) ) {
+                    listaClases.add(clase);
                 }
             }
         }
         return listaClases;
     }
-    public boolean reservarClase(Alumno alumno, Clase clase) {
+    public String reservarClase(Alumno alumno, Clase clase, boolean virtual) {
         SucursalGimnasio sucursal = buscarSucursal(clase.getSede());
         String ejercicio = clase.getEjercicio().getNombre();
-        int i = 0;
-        int size = sucursal.getArticulos().size();
-        ArrayList<Articulo> sucursalArticulos = sucursal.getArticulos();
-        switch (ejercicio) {
-            case "Crossfit":
-                ArrayList<Articulo> articulos = new ArrayList<>();
-                int pesaMano = 2;
-                int pesaTobillera = 2;
-                int pesaDisco= 1;
-                while ((pesaMano!=0 || pesaTobillera!= 0 || pesaDisco != 0) && i < size ) {
-                    Articulo articulo = sucursalArticulos.get(i);
-                    if (articulo.getId()==4 || articulo.getId()==5) {
-                        Pesa pesa = (Pesa)articulo;
-                        switch (pesa.getUso()) {
-                            case DE_MANO:
-                                if (pesaMano!=0) {
-                                    pesaMano--;
-                                    articulos.add(articulo);
-                                }
-                            case TOBILLERAS:    
-                                if (pesaTobillera!=0) {
-                                    pesaTobillera--;
-                                    articulos.add(pesa);
-                                }
-                            case DISCOS:
-                                if (pesaDisco!=0) {
-                                    pesaDisco--;
-                                    articulos.add(pesa);
-                                }
-                        }
-                    }
-                i++;    
-                }
-                if (pesaMano!=0 || pesaTobillera !=0 || pesaDisco !=0) return false;
-                for (Articulo item : articulos) {
-                    clase.addArticulo(item);
-                    sucursalArticulos.remove(item);
-                }
-                break;
-            case "Yoga":
-                Articulo colS = null;
-                while (colS==null || i<size) {
-                    Articulo articulo = sucursalArticulos.get(i);
-                    if (articulo.getId()==1) {
-                        colS= articulo;
-                    }
-                    i++;
-                }
-                if (colS==null) return false;
-                clase.addArticulo(colS);
-                sucursalArticulos.remove(colS);
-                break;
-            case "Gimnasia Postural":
-                Articulo colchonetaGim=null;
-                while (colchonetaGim==null || i<size) {
-                    Articulo articulo = sucursalArticulos.get(i);
-                    if (articulo.getId()==1) {
-                        colchonetaGim= articulo;
-                    }
-                    i++;
-                }
-                if (colchonetaGim==null) return false;
-                clase.addArticulo(colchonetaGim);
-                sucursalArticulos.remove(colchonetaGim);
-                break;
-            case "Kangoo Jumping":
-                Articulo colchonetaKangoo=null;
-                Articulo botasKangoo=null;
-                while (colchonetaKangoo==null || i<size) {
-                    Articulo articulo = sucursalArticulos.get(i);
-                    if (articulo.getId()==1) colchonetaKangoo= articulo;
-                    if (articulo.getId()==3) {
-                        Accesorio accesorio = (Accesorio)articulo;
-                        if (accesorio.getNombre().equals("Botas Kangoo")) botasKangoo=articulo;
-                    }
-                    i++;
-                }
-                if (colchonetaKangoo==null || botasKangoo==null) return false;
-                clase.addArticulo(colchonetaKangoo);
-                clase.addArticulo(botasKangoo);
-                sucursalArticulos.remove(colchonetaKangoo);
-                sucursalArticulos.remove(botasKangoo);
-                break;
-            case "Aero Combat":
-                int pesaManoAero=2;
-                ArrayList<Articulo> articulosAero = new ArrayList<>();
-                Articulo colchonetaAero = null;
-                while ((pesaManoAero!=0 || colchonetaAero==null) && i < size ) {
-                    Articulo articulo = sucursalArticulos.get(i);
-                    if (articulo.getId()==1 || articulo.getId()==4 || articulo.getId()==5) {
-                        if (articulo.getId()==1) colchonetaAero= articulo;
-                        else {
-                            Pesa pesaAero = (Pesa)articulo;
-                            if (pesaAero.getUso()==UsoPesa.DE_MANO) {
-                                articulosAero.add(articulo);
-                                pesaManoAero--;
+        Modalidad modalidad = clase.getEjercicio().getModalidad();
+        if (modalidad.equals(Modalidad.ONLINE) && virtual) {
+            alumno.addClase(clase);
+            clase.addAlumno(alumno, virtual);
+            clase.actualizar(sucursal);         // Actualizar rentabilidad de la clase, capacidad...
+            return "La reserva se realizo exitosamente";
+        } else if (modalidad.equals(Modalidad.PRESENCIAL) && virtual) {
+            return "Esta clase solo puede ser asistida presencialmente";
+        } else {
+            if (clase.getCapacidad()==0) return "Esta clase llego a su capacidad máxima";
+            if (sucursal.getLugar().getSuperficieM2() / clase.getCapacidad() > 2 ) return "Esta clase no tiene espacio físico para mas alumnos";
+            int i = 0;
+            int size = sucursal.getArticulos().size();
+            ArrayList<Articulo> sucursalArticulos = sucursal.getArticulos();
+            switch (ejercicio) {
+                case "Crossfit":
+                    ArrayList<Articulo> articulos = new ArrayList<>();
+                    int pesaMano = 2;
+                    int pesaTobillera = 2;
+                    int pesaDisco= 1;
+                    while ((pesaMano!=0 || pesaTobillera!= 0 || pesaDisco != 0) && i < size ) {
+                        Articulo articulo = sucursalArticulos.get(i);
+                        if (articulo.getId().equals("4") || articulo.getId().equals("5")) {
+                            Pesa pesa = (Pesa)articulo;
+                            switch (pesa.getUso()) {
+                                case DE_MANO:
+                                    if (pesaMano!=0) {
+                                        pesaMano--;
+                                        articulos.add(articulo);
+                                    }
+                                case TOBILLERAS:    
+                                    if (pesaTobillera!=0) {
+                                        pesaTobillera--;
+                                        articulos.add(pesa);
+                                    }
+                                case DISCOS:
+                                    if (pesaDisco!=0) {
+                                        pesaDisco--;
+                                        articulos.add(pesa);
+                                    }
                             }
                         }
+                    i++;    
                     }
-                i++;    
-                }
-                if (colchonetaAero==null || pesaManoAero==0) return false;
-                for (Articulo articuloAero : articulosAero) { 
-                    clase.addArticulo(articuloAero);
-                    sucursalArticulos.remove(articuloAero);
-                }
-                clase.addArticulo(colchonetaAero);
-                sucursalArticulos.remove(colchonetaAero);
-                break;
+                    if (pesaMano!=0 || pesaTobillera !=0 || pesaDisco !=0) return "La sucursal no cuenta con articulos suficientes";
+                    for (Articulo item : articulos) {
+                        clase.addArticulo(item);
+                        sucursalArticulos.remove(item);
+                    }
+                    break;
+                case "Yoga":
+                    Articulo colS = null;
+                    while (colS==null || i<size) {
+                        Articulo articulo = sucursalArticulos.get(i);
+                        if (articulo.getId().equals("1")) {
+                            colS= articulo;
+                        }
+                        i++;
+                    }
+                    if (colS==null) return "La sucursal no cuenta con articulos suficientes";
+                    clase.addArticulo(colS);
+                    sucursalArticulos.remove(colS);
+                    break;
+                case "Gimnasia Postural":
+                    Articulo colchonetaGim=null;
+                    while (colchonetaGim==null || i<size) {
+                        Articulo articulo = sucursalArticulos.get(i);
+                        if (articulo.getId().equals("1")) {
+                            colchonetaGim= articulo;
+                        }
+                        i++;
+                    }
+                    if (colchonetaGim==null) return "La sucursal no cuenta con articulos suficientes";
+                    clase.addArticulo(colchonetaGim);
+                    sucursalArticulos.remove(colchonetaGim);
+                    break;
+                case "Kangoo Jumping":
+                    Articulo colchonetaKangoo=null;
+                    Articulo botasKangoo=null;
+                    while (colchonetaKangoo==null || i<size) {
+                        Articulo articulo = sucursalArticulos.get(i);
+                        if (articulo.getId().equals("1")) colchonetaKangoo= articulo;
+                        if (articulo.getId().equals("3")) {
+                            Accesorio accesorio = (Accesorio)articulo;
+                            if (accesorio.getNombre().equals("Botas Kangoo")) botasKangoo=articulo;
+                        }
+                        i++;
+                    }
+                    if (colchonetaKangoo==null || botasKangoo==null) return "La sucursal no cuenta con articulos suficientes";
+                    clase.addArticulo(colchonetaKangoo);
+                    clase.addArticulo(botasKangoo);
+                    sucursalArticulos.remove(colchonetaKangoo);
+                    sucursalArticulos.remove(botasKangoo);
+                    break;
+                case "Aero Combat":
+                    int pesaManoAero=2;
+                    ArrayList<Articulo> articulosAero = new ArrayList<>();
+                    Articulo colchonetaAero = null;
+                    while ((pesaManoAero!=0 || colchonetaAero==null) && i < size ) {
+                        Articulo articulo = sucursalArticulos.get(i);
+                        if (articulo.getId().equals("1") || articulo.getId().equals("4")|| articulo.getId().equals("5")) {
+                            if (articulo.getId().equals("1")) colchonetaAero= articulo;
+                            else {
+                                Pesa pesaAero = (Pesa)articulo;
+                                if (pesaAero.getUso()==UsoPesa.DE_MANO) {
+                                    articulosAero.add(articulo);
+                                    pesaManoAero--;
+                                }
+                            }
+                        }
+                    i++;    
+                    }
+                    if (colchonetaAero==null || pesaManoAero==0) return "La sucursal no cuenta con articulos suficientes";
+                    for (Articulo articuloAero : articulosAero) { 
+                        clase.addArticulo(articuloAero);
+                        sucursalArticulos.remove(articuloAero);
+                    }
+                    clase.addArticulo(colchonetaAero);
+                    sucursalArticulos.remove(colchonetaAero);
+                    break;
+            }
         }
         alumno.addClase(clase);
-        clase.addAlumno(alumno);
+        clase.addAlumno(alumno, virtual);
         clase.actualizar(sucursal);         // Actualizar rentabilidad de la clase, capacidad...
-        return true;
+        return "La reserva se realizo exitosamente";
     }
     //Metodo para cancelar clase
     public boolean cancelarReservarClase(Alumno alumno, Clase clase) {
@@ -289,7 +297,7 @@ public class Supertlon {
                 int pesaDisco= 1;
                 while ((pesaMano!=0 || pesaTobillera!= 0 || pesaDisco != 0) ) {
                     Articulo articulo = clase.getArticulos().get(i);
-                    if (articulo.getId()==4 || articulo.getId()==5) {
+                    if (articulo.getId().equals("4") || articulo.getId().equals("5")) {
                         Pesa pesa = (Pesa)articulo;
                         switch (pesa.getUso()) {
                             case DE_MANO:
@@ -320,7 +328,7 @@ public class Supertlon {
                 Articulo colS = null;
                 while (colS==null || i<size) {
                     Articulo articulo = clase.getArticulos().get(i);
-                    if (articulo.getId()==1) {
+                    if (articulo.getId().equals("1")) {
                         colS= articulo;
                     }
                     i++;
@@ -332,7 +340,7 @@ public class Supertlon {
                 Articulo colchonetaGim=null;
                 while (colchonetaGim==null || i<size) {
                     Articulo articulo = clase.getArticulos().get(i);
-                    if (articulo.getId()==1) {
+                    if (articulo.getId().equals("1")) {
                         colchonetaGim= articulo;
                     }
                     i++;
@@ -345,8 +353,8 @@ public class Supertlon {
                 Articulo botasKangoo=null;
                 while ((colchonetaKangoo==null || botasKangoo==null) || i<size) {
                     Articulo articulo = clase.getArticulos().get(i);
-                    if (articulo.getId()==1) colchonetaKangoo= articulo;
-                    if (articulo.getId()==3) {
+                    if (articulo.getId().equals("1")) colchonetaKangoo= articulo;
+                    if (articulo.getId().equals("3")) {
                         Accesorio accesorio = (Accesorio)articulo;
                         if (accesorio.getNombre().equals("Botas Kangoo")) botasKangoo=articulo;
                     }
@@ -363,8 +371,8 @@ public class Supertlon {
                 Articulo colchonetaAero = null;
                 while ((pesaManoAero!=0 || colchonetaAero==null) && i < size ) {
                     Articulo articulo = clase.getArticulos().get(i);
-                    if (articulo.getId()==1 || articulo.getId()==4 || articulo.getId()==5) {
-                        if (articulo.getId()==1) colchonetaAero= articulo;
+                    if (articulo.getId().equals("1") || articulo.getId().equals("4") || articulo.getId().equals("4")) {
+                        if (articulo.getId().equals("1")) colchonetaAero= articulo;
                         else {
                             Pesa pesaAero = (Pesa)articulo;
                             if (pesaAero.getUso()==UsoPesa.DE_MANO) {
@@ -424,18 +432,17 @@ public class Supertlon {
     public void transicionarClase() {
         return;
     }
-    public void monitorearStreaming(String sucursalNombre, String userId) {
-        Administrativo administrativo = null;
-        SucursalGimnasio sucursal = null;
-        for (Administrativo admin : admins) {
-            if (admin.getId().equals(userId)) administrativo = admin;
+    public LinkedList<Clase> monitorearStreaming(SucursalGimnasio sucursal, String ejercicio) {
+        LinkedList<Clase> grabaciones = null;
+        switch (ejercicio) {
+            case "Yoga":
+                grabaciones = sucursal.getGrabaciones().getClasesYoga();
+                break;
+            case "Gimnasia Postural":
+                grabaciones = sucursal.getGrabaciones().getClasesGimnasia();
+                break;
         }
-        if (administrativo.getSedes().contains(sucursalNombre))
-            for (SucursalGimnasio sucursalGimnasio : sucursales) {
-                if (sucursalGimnasio.getSedeNombre().equals(sucursalNombre)) sucursal = sucursalGimnasio;
-            }
-
-        return;
+        return grabaciones;
     }
 
     public void listarArticulos () {
@@ -446,10 +453,10 @@ public class Supertlon {
         int cantGadNic = 0;
         for (int i = 0; i < articulos.size(); i++) {
             System.out.println("Articulos en el almacén, sin sucursal.");
-            if (articulos.get(i).getId() == 1){cantSoftTech++;}
-            else if (articulos.get(i).getId() == 2) {cantPampero++;}
-            else if (articulos.get(i).getId() == 3) {cantAccesorios++;}
-            else if (articulos.get(i).getId() == 4) {cantIronMan++;}
+            if (articulos.get(i).getId().equals("1")){cantSoftTech++;}
+            else if (articulos.get(i).getId().equals("2")) {cantPampero++;}
+            else if (articulos.get(i).getId().equals("3")) {cantAccesorios++;}
+            else if (articulos.get(i).getId().equals("4")) {cantIronMan++;}
             else{cantGadNic++;}
         }
         System.out.println("SoftTech: " + cantSoftTech);
@@ -458,66 +465,22 @@ public class Supertlon {
         System.out.println("IronMan: " + cantIronMan);
         System.out.println("GadNic: " + cantGadNic);
     }
-    public void listarArticulos(String nombre){
-        try {
-            if (nombre == ""){
-                int i=0;
-                for (SucursalGimnasio sucursal : sucursales) {
-                    System.out.println("Nombre Sucursal: " + sucursal.getSedeNombre());
-                    int cantSoftTech = 0;
-                    int cantPampero = 0;
-                    int cantAccesorios = 0;
-                    int cantIronMan = 0;
-                    int cantGadNic = 0;
-                    for (int j = 0; j < sucursal.getArticulos().size(); j++) {
-                        if (sucursal.getArticulos().get(j).getId() == 1){cantSoftTech++;}
-                        else if (sucursal.getArticulos().get(j).getId() == 2) {cantPampero++;}
-                        else if (sucursal.getArticulos().get(j).getId() == 3) {cantAccesorios++;}
-                        else if (sucursal.getArticulos().get(j).getId() == 4) {cantIronMan++;}
-                        else{cantGadNic++;}
-                    }
-                    System.out.println("SoftTech: " + cantSoftTech);
-                    System.out.println("Pampero: " + cantPampero);
-                    System.out.println("Accesorios: " + cantAccesorios);
-                    System.out.println("IronMan: " + cantIronMan);
-                    System.out.println("GadNic: " + cantGadNic);
-                    i++;
-                }
-            }else{
-                int i=0;
-                for (SucursalGimnasio sucursal : sucursales) {
-                    if (sucursal.getSedeNombre() == sucursal.getSedeNombre()){
-                        int cantSoftTech = 0;
-                        int cantPampero = 0;
-                        int cantAccesorios = 0;
-                        int cantIronMan = 0;
-                        int cantGadNic = 0;
-                        System.out.println("Nombre Sucursal: " + sucursal.getSedeNombre());
-                        for (int j = 0; j < sucursal.getArticulos().size(); j++) {
-                            if (sucursal.getArticulos().get(j).getId() == 1){cantSoftTech++;}
-                            else if (sucursal.getArticulos().get(j).getId() == 2) {cantPampero++;}
-                            else if (sucursal.getArticulos().get(j).getId() == 3) {cantAccesorios++;}
-                            else if (sucursal.getArticulos().get(j).getId() == 4) {cantIronMan++;}
-                            else{cantGadNic++;}
-                        }
-                        System.out.println("SoftTech: " + cantSoftTech);
-                        System.out.println("Pampero: " + cantPampero);
-                        System.out.println("Accesorios: " + cantAccesorios);
-                        System.out.println("IronMan: " + cantIronMan);
-                        System.out.println("GadNic: " + cantGadNic);
-                        i++;
-                    }else {
-                        System.out.println("En esta la sede" + sucursal.getSedeNombre() + "No hay articulos");
-                    }
-                }
-            }
-
-        }catch (Exception e){
-            System.out.println(e);
+    public String listarArticulos(SucursalGimnasio sucursal){
+        String articulos="";
+        for (Articulo articulo : sucursal.getArticulos()) {
+            articulos += articulo.toString() + "\n";
         }
-
+        return articulos;
     }
-
+    public boolean bajaArticulo(SucursalGimnasio sucursal, String itemId) {
+        for (Articulo articulo : sucursal.getArticulos()) {
+            if (articulo.getItemId().equals(itemId)) {
+                sucursal.getArticulos().remove(articulo);
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean cargarArticulos() {
         Scanner input = new Scanner(System.in);
         System.out.println("Artículos Disponibles: ");
@@ -596,103 +559,22 @@ public class Supertlon {
         return true;
     }
 
-    public boolean añadirArticulosASede(int userId){
-        listarArticulos();
-        Scanner input = new Scanner(System.in);
-        Administrativo administrativo=null;
-        for (Administrativo admin : admins){
-            if (admin.getId().equals(userId)) administrativo=admin;
-        }
-        System.out.println("Ingresar nombre de la sede donde se agendará la clase, o ingresar 0 para cancelar: ");
-        String sede = input.nextLine();
-        while (!administrativo.getSedes().contains(sede) | !sede.equals("0")) {
-            System.out.println("El barrio ingresado no pertenece a alguna sede bajo su control: ");
-            System.out.println("Ingresar nombre de la sede donde se agendará la clase, o ingresar 0 para cancelar: ");
-            sede = input.nextLine();
-        }
-        if (sede.equals("0")) return false;
-        SucursalGimnasio sucursal= null;
-        for (SucursalGimnasio s : sucursales) {
-            if (s.getSedeNombre().equals(sede)) {
-                sucursal = s;
-            }
-        }
-        System.out.println("Artículos Disponibles: ");
-        System.out.println("1 - SoftTech");
-        System.out.println("2 - Pampero");
-        System.out.println("3 - Accesorios");
-        System.out.println("4 - IronMan");
-        System.out.println("5 - GadNic");
-        boolean invalido=true;
-        int opcion=-1;
-        int cantidad;
-        do {
-            try {
-                System.out.println("Ingresar el numero del articulo a cargar o cualquier letra para cancelar");
-                opcion = Integer.parseInt(input.next());
-                System.out.println("Ingresar la cantidad de articulos a cargar: ");
-                cantidad = Integer.parseInt(input.next());
-                if (1<=opcion && opcion<=5 && cantidad>=0) {
-                    invalido = false;
-                    input.reset();
-                }
-                else {
-                    System.out.println("Ingresar un numero válido");
-                    input.reset();
-                }
-            }
-            catch (Exception e) {
-                System.out.println("No se ingreso un numero. Cancelando reserva");
-                return false;
-            }
-        } while (invalido);
+    public String añadirArticulosASede(SucursalGimnasio sucursal, String articuloId, String cantidad){
         int i=0;
         int lista = articulos.size();
-        if (opcion==1) {
-            while (cantidad>0 && lista>0) {
-                if (articulos.get(i).getId()==opcion) {
-                    sucursal.addArticulo(articulos.get(i));
-                    articulos.remove(i);
-                    cantidad--;
-                }
-                i++;
-                lista--;
-            }
-        } else if (opcion == 2) {
-            while(cantidad > 0 && lista > 0) {
-                if (articulos.get(i).getId() == opcion){
-                    sucursal.addArticulo(articulos.get(i));
-                }
-                i++;
-                lista--;
-            }
-        }else if (opcion == 3) {
-            while(cantidad > 0 && lista > 0) {
-                if (articulos.get(i).getId() == opcion){
-                    sucursal.addArticulo(articulos.get(i));
-                }
-                i++;
-                lista--;
-            }
-        }else if (opcion == 4) {
-            while(cantidad > 0 && lista > 0) {
-                if (articulos.get(i).getId() == opcion){
-                    sucursal.addArticulo(articulos.get(i));
-                }
-                i++;
-                lista--;
-            }
-        }else {
-            while (cantidad > 0 && lista > 0) {
-                if (articulos.get(i).getId() == opcion) {
-                    sucursal.addArticulo(articulos.get(i));
-                }
-                i++;
-                lista--;
-            }
+        int cant = Integer.parseInt(cantidad);
+        int exitos=0;
+        while (cant > 0 && lista>0) {
+            if (articulos.get(i).getId().equals(articuloId)) {
+                sucursal.addArticulo(articulos.get(i));
+                articulos.remove(i);
+                cant--;
+                exitos++;
+            } else i++;
+            lista--;
         }
-        return true;
-        }
+        return String.valueOf(exitos);
+    }
 
     //metodos de ayuda
     public Alumno buscarAlumno(String id) {

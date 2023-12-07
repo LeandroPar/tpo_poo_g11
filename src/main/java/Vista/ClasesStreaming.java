@@ -4,9 +4,13 @@
  */
 package Vista;
 
+import Controlador.Supertlon;
+import Modelo.Clase;
+import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 /**
  *
@@ -14,12 +18,19 @@ import java.awt.event.ActionListener;
  */
 public class ClasesStreaming extends javax.swing.JFrame {
     private Administrativo admin;
+    private SucursalGimnasio sucursal;
+    private Supertlon controlador;
+    private LinkedList<Clase> grabaciones;
     /**
      * Creates new form ClasesStreaming
      */
-    public ClasesStreaming(Administrativo admin) {
+    public ClasesStreaming(Administrativo admin, SucursalGimnasio sucursal) {
         initComponents();
+        controlador = Supertlon.getInstance();
         this.admin = admin;
+        this.sucursal = sucursal;
+        this.grabaciones = new LinkedList<>();
+        txtSucursal.setText("Sucursal: " + sucursal.getSedeNombre());
     }
 
     /**
@@ -34,6 +45,14 @@ public class ClasesStreaming extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         botonVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        txtSucursal = new javax.swing.JLabel();
+        comboEjercicio = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        comboGrabaciones = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtClase = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +65,32 @@ public class ClasesStreaming extends javax.swing.JFrame {
 
         jLabel1.setText("Clases de Streaming");
 
+        txtSucursal.setText("Sucursal: ");
+
+        comboEjercicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yoga", "Gimnasia Postural" }));
+        comboEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEjercicioActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Ejercicio:");
+
+        comboGrabaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboGrabacionesActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Grabacion:");
+
+        jLabel4.setText("Detalles grabacion:");
+
+        txtClase.setColumns(20);
+        txtClase.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        txtClase.setRows(5);
+        jScrollPane1.setViewportView(txtClase);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -57,6 +102,26 @@ public class ClasesStreaming extends javax.swing.JFrame {
                 .addGap(128, 128, 128)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(comboEjercicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboGrabaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtSucursal))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(48, 48, 48))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,7 +129,21 @@ public class ClasesStreaming extends javax.swing.JFrame {
                 .addComponent(botonVolver)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addGap(0, 249, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSucursal)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboEjercicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboGrabaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,22 +161,41 @@ public class ClasesStreaming extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        botonVolver.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
-                ventanaMenu.setVisible(true);
-                ventanaMenu.setLocationRelativeTo(null);
-            }
-            
-        });
+        VentanaInformacion ventanaMenu = new VentanaInformacion(admin, sucursal);
+        ventanaMenu.setVisible(true);
+        ventanaMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
+
+    private void comboEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEjercicioActionPerformed
+        // TODO add your handling code here:
+        comboGrabaciones.removeAllItems();
+        String ejercicio = comboEjercicio.getSelectedItem().toString();
+        this.grabaciones = controlador.monitorearStreaming(sucursal, ejercicio);
+        for (int i=0; i<this.grabaciones.size(); i++) {
+            comboGrabaciones.addItem("Grabacion 1");
+        }
+    }//GEN-LAST:event_comboEjercicioActionPerformed
+
+    private void comboGrabacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGrabacionesActionPerformed
+        // TODO add your handling code here:
+        int index = comboGrabaciones.getSelectedIndex();
+        String clase = this.grabaciones.get(index).toString();
+        txtClase.setText(clase);
+    }//GEN-LAST:event_comboGrabacionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonVolver;
+    private javax.swing.JComboBox<String> comboEjercicio;
+    private javax.swing.JComboBox<String> comboGrabaciones;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtClase;
+    private javax.swing.JLabel txtSucursal;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,21 +9,14 @@ import java.util.ArrayList;
 public class Profesor {
     private String nombre;
     private int Sueldo;
-    private Agenda agenda;
+    private ArrayList<Clase> agenda;
 
     public Profesor(String nombre, int sueldo) {
         this.nombre = nombre;
         Sueldo = sueldo;
-        this.agenda = new Agenda();
+        this.agenda = new ArrayList<>();
     }
     
-    public Profesor(String nombre, int sueldo, ArrayList<String> dias) {
-        this.nombre = nombre;
-        Sueldo = sueldo;
-        this.agenda = new Agenda();
-        this.agenda.setDias(dias);
-    }
-
     public int getSueldo() {
         return Sueldo;
     }
@@ -36,14 +29,22 @@ public class Profesor {
         return nombre;
     }
 
-    public Agenda getAgenda() {
+    public ArrayList<Clase> getAgenda() {
         return agenda;
+    }
+    
+    public void addClase(Clase clase) {
+        this.agenda.add(clase);
+    }
+    
+    public void removeClase(Clase clase) {
+        this.agenda.remove(clase);
     }
 
     public String estaDisponible(LocalDateTime horario, LocalTime duracion) {
         int max = 3;
         LocalDateTime horarioFinal = horario.plusHours(duracion.getHour() + 3).plusMinutes(duracion.getMinute());
-        for (Clase clase : this.agenda.getClases()) {
+        for (Clase clase : this.agenda) {
             if (max==0) return "El profesor ya tiene 3 clases en el dia ingresado";
             LocalDateTime horario2 = clase.getHorario();
             if ( horario.toLocalDate().equals(horario2.toLocalDate())) {
@@ -57,4 +58,10 @@ public class Profesor {
         }
         return "Profesor disponible";
     }
+
+    @Override
+    public String toString() {
+        return "Profesor "  + nombre + " - Sueldo: " + Sueldo;
+    }
+    
 }

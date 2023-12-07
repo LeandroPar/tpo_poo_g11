@@ -10,7 +10,7 @@ public class Gadnic extends Pesa{
     private int desgaste;
     private Amortizacion amortizacion;
     private String nombre;
-    private int id;
+    private String id;
     private String itemId;
 
     public Gadnic(UsoPesa uso) {
@@ -19,7 +19,7 @@ public class Gadnic extends Pesa{
         this.amortizacion = Amortizacion.POR_USO;
         this.desgaste=25;
         this.nombre = "Mancuerna de Tobillo de 2.5Kg Gadnic";
-        this.id = 5;
+        this.id = "5";
         this.itemId = GenerarId.generarItemId();
     }
 
@@ -51,7 +51,7 @@ public class Gadnic extends Pesa{
         return itemId;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     

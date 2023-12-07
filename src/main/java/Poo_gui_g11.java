@@ -19,7 +19,7 @@ public class Poo_gui_g11 {
     public static void main (String[] args) {
         Supertlon controller = Supertlon.getInstance();
         int testData = 1;
-
+        
         //Declaración de datos de prueba
         if (testData==1) {
             ArrayList<String> lista = new ArrayList<>();
@@ -30,10 +30,10 @@ public class Poo_gui_g11 {
             controller.altaAdministrativo("Jorgelin", lista2);
             controller.altaAlumno("Jose", "ORO");
             controller.altaSoporte("Marquito"); //Id 4
-            controller.altaSucursal("Palermo", "ORO", "Salon", 25, 15000);
+            controller.altaSucursal("Nunez", "ORO", "Salon", 25, 15000);
             controller.altaSucursal("Liniers", "BLACK", "Salon", 23, 1500);
             controller.altaSucursal("San Lorenzo", "PLATINUM", "Pileta", 18.5, 1500);
-            controller.altaProfesor("Jorgito2", 1500, "Palermo");
+            
             //cargarArticulos pide datos por input
             //controller.cargarArticulos();
             //controller.listarArticulos();

@@ -70,8 +70,9 @@ public class Alumno extends Usuario{
     public String toString() {
         return "Alumno - " +
                 "Nombre: " + nombre +
-                ", Membresia: " + membresia +
+                ", Membresia: " + membresia + "\n" +
                 " (Costo: " + costoMembresia +
-                "), Id: " + id;
+                "), Id: " + id +
+                " Reservas: " + clases.size();
     }
 }

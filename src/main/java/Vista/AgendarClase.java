@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Controlador.Supertlon;
+import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +14,19 @@ import java.awt.event.ActionListener;
  *
  * @author Roman
  */
-public class Agenda extends javax.swing.JFrame {
+public class AgendarClase extends javax.swing.JFrame {
+    private Supertlon controlador;
     private Administrativo admin;
+    private SucursalGimnasio sucursal;
+    
     /**
      * Creates new form Agenda
      */
-    public Agenda(Administrativo admin) {
+    public AgendarClase(Administrativo admin, SucursalGimnasio sucursal) {
         initComponents();
+        controlador = Supertlon.getInstance();
         this.admin = admin;
+        this.sucursal = sucursal;
     }
 
     /**

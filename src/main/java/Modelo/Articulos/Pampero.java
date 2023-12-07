@@ -9,7 +9,7 @@ public class Pampero extends Colchoneta{
     private int desgaste;
     private Amortizacion amortizacion;
     private String nombre;
-    private int id;
+    private String id;
     private String itemId;
 
 
@@ -19,7 +19,7 @@ public class Pampero extends Colchoneta{
         this.desgaste = 20;
         this.amortizacion = Amortizacion.POR_USO;
         this.nombre = "Colchoneta de alta densidad Pampero";
-        this.id = 2;
+        this.id = "2";
         this.itemId = GenerarId.generarItemId();
     }
 
@@ -46,11 +46,11 @@ public class Pampero extends Colchoneta{
     public String getNombre() {
         return nombre;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -9,7 +9,7 @@ public class SoftTech extends Colchoneta{
     private int desgaste;
     private Amortizacion amortizacion;
     private String nombre;
-    private int id;
+    private String id;
     private String itemId;
 
     public SoftTech() {
@@ -18,7 +18,7 @@ public class SoftTech extends Colchoneta{
         this.desgaste = 400;
         this.amortizacion = Amortizacion.POR_FECHA_FABRICACION;
         this.nombre = "Colchoneta liviana SoftTech";
-        this.id = 1;
+        this.id = "1";
         this.itemId = GenerarId.generarItemId();
     }
 
@@ -46,7 +46,7 @@ public class SoftTech extends Colchoneta{
         return nombre;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

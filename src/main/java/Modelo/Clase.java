@@ -3,6 +3,7 @@ package Modelo;
 import Modelo.Articulos.Articulo;
 import Modelo.Ejercicios.Ejercicio;
 import Modelo.Usuarios.Alumno;
+import Modelo.enums.Amortizacion;
 import Modelo.enums.ClaseEstado;
 import Modelo.enums.TipoLugar;
 
@@ -44,17 +45,13 @@ public class Clase {
         for (Alumno alumno : this.alumnos) {
             ingreso += alumno.getCostoMembresia()/30;
         }
-        String ejercicio = this.getEjercicio().getNombre();
-        switch (ejercicio) {
-            case "Crossfit":
-                
-            case "Aero Combat":
-                    
-            case "Gimnasia Postural":
-                
-            case "Kangoo Jumping":
-                
-            case "Yoga":
+        //Costos arbitrarios: POR USO -> costo 5 ; POR FECHA -> costo 2
+        for (Articulo articulo : this.articulos) {
+            if (articulo.getAmortizacion().equals(Amortizacion.POR_USO)) {
+                costo += 5;
+            } else {
+                costo += (this.duracion.getHour()/8) * 2;
+            }
         }
         
         int balance = costo + ingreso;
@@ -77,9 +74,9 @@ public class Clase {
     }
 
     
-    public void addAlumno(Alumno alumno) {
+    public void addAlumno(Alumno alumno, boolean virtual) {
         this.alumnos.add(alumno);
-        this.capacidad--;
+        if (!virtual) this.capacidad--;
     }
     public int getCapacidad() {
         return capacidad;

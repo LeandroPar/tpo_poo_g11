@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.Supertlon;
+import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.Administrativo;
 import Modelo.enums.Nivel;
 import java.awt.event.ActionEvent;
@@ -13,14 +14,13 @@ import java.awt.event.ActionListener;
 public class CargarCliente extends javax.swing.JFrame {
     private Supertlon controlador;
     private Administrativo admin;
+    private SucursalGimnasio sucursal;
     
-    public CargarCliente(Administrativo admin) {
+    public CargarCliente(Administrativo admin, SucursalGimnasio sucursal) {
         initComponents();
         controlador = Supertlon.getInstance();
         this.admin = admin;
-        membresia.addItem("BLACK");
-        membresia.addItem("ORO");
-        membresia.addItem("PLATINUM");
+        this.sucursal = sucursal;
     }
 
     @SuppressWarnings("unchecked")
@@ -45,7 +45,7 @@ public class CargarCliente extends javax.swing.JFrame {
 
         jLabel3.setText("Membresia");
 
-        membresia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        membresia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLACK", "ORO", "PLATINUM" }));
 
         botonCarga.setText("Cargar");
         botonCarga.addActionListener(new java.awt.event.ActionListener() {
@@ -77,14 +77,15 @@ public class CargarCliente extends javax.swing.JFrame {
                             .addComponent(nombre)
                             .addComponent(jLabel3)
                             .addComponent(membresia, 0, 303, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(botonCarga))
                     .addComponent(botonVolver)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(161, 161, 161)
-                        .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonCarga)))
                 .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtConfirmacion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,15 +130,9 @@ public class CargarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCargaActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        botonVolver.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
-                ventanaMenu.setVisible(true);
-                ventanaMenu.setLocationRelativeTo(null);
-            }
-            
-        });
+        VentanaInformacion ventanaMenu = new VentanaInformacion(admin, sucursal);
+        ventanaMenu.setVisible(true);
+        ventanaMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
 

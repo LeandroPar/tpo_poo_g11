@@ -4,6 +4,7 @@
  */
 package Vista;
 import Controlador.Supertlon;
+import Modelo.SucursalGimnasio;
 import Modelo.Usuarios.Administrativo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,14 +14,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 public class VentanaInformacion extends javax.swing.JFrame {
     private Supertlon supertlon;
-    private String nombre;
+    private SucursalGimnasio sucursal;
     private Administrativo admin;
     
-    public VentanaInformacion(Administrativo admin, String nombre) {
+    public VentanaInformacion(Administrativo admin, SucursalGimnasio sucursal) {
         initComponents();
         supertlon = Supertlon.getInstance();
         this.admin = admin;
-        nombreSucursal.setText(nombre);
+        this.sucursal = sucursal;
+        nombreSucursal.setText(sucursal.getSedeNombre());
         
     }
     @SuppressWarnings("unchecked")
@@ -33,11 +35,12 @@ public class VentanaInformacion extends javax.swing.JFrame {
         cargarCliente = new javax.swing.JButton();
         gestionarArticulos = new javax.swing.JButton();
         claseStreaming = new javax.swing.JButton();
-        agenda = new javax.swing.JButton();
+        btnAgendarClase = new javax.swing.JButton();
         bajaCliente = new javax.swing.JButton();
         gestionarClase = new javax.swing.JButton();
         nombreSucursal = new javax.swing.JLabel();
         botonVolver = new javax.swing.JButton();
+        btnGestionarProfesores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,10 +74,10 @@ public class VentanaInformacion extends javax.swing.JFrame {
             }
         });
 
-        agenda.setText("Agenda");
-        agenda.addActionListener(new java.awt.event.ActionListener() {
+        btnAgendarClase.setText("Agendar Clase");
+        btnAgendarClase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agendaActionPerformed(evt);
+                btnAgendarClaseActionPerformed(evt);
             }
         });
 
@@ -92,6 +95,8 @@ public class VentanaInformacion extends javax.swing.JFrame {
             }
         });
 
+        nombreSucursal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         botonVolver.setText("Volver");
         botonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,41 +104,45 @@ public class VentanaInformacion extends javax.swing.JFrame {
             }
         });
 
+        btnGestionarProfesores.setText("Gestionar Profesores");
+        btnGestionarProfesores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionarProfesoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bajaCliente)
-                                    .addComponent(cargarCliente))
-                                .addGap(12, 12, 12))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(agregarArticulo)))
-                        .addGap(94, 94, 94)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(claseStreaming)
-                            .addComponent(gestionarArticulos)
-                            .addComponent(agenda)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(nombreSucursal)))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addComponent(btnAgendarClase)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(gestionarClase))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cargarCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bajaCliente))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(agregarArticulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(gestionarArticulos))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(claseStreaming)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addComponent(btnGestionarProfesores)))
+                .addGap(32, 32, 32))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonVolver)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(118, 118, 118)
-                        .addComponent(jLabel1))
-                    .addComponent(botonVolver))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombreSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,23 +151,25 @@ public class VentanaInformacion extends javax.swing.JFrame {
                 .addComponent(botonVolver)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nombreSucursal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(agregarArticulo)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bajaCliente)
-                    .addComponent(agenda))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cargarCliente)
+                    .addComponent(agregarArticulo)
                     .addComponent(gestionarArticulos))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cargarCliente)
+                    .addComponent(bajaCliente))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(gestionarClase)
-                    .addComponent(claseStreaming))
-                .addGap(57, 57, 57))
+                    .addComponent(btnAgendarClase))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(claseStreaming, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGestionarProfesores))
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,80 +187,52 @@ public class VentanaInformacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarArticuloActionPerformed
-       agregarArticulo.addActionListener(new ActionListener(){
-
-       public void actionPerformed(ActionEvent  e){
-           VentanaSeleccionarTipoArticulo ventana = new VentanaSeleccionarTipoArticulo(admin);
-           ventana.setVisible(true);
-           ventana.setLocationRelativeTo(null);
-       }
-            
-    });
+        VentanaSeleccionarTipoArticulo ventana = new VentanaSeleccionarTipoArticulo(admin, sucursal);
+        ventana.setVisible(true);
+        ventana.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_agregarArticuloActionPerformed
 
     private void cargarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarClienteActionPerformed
-        cargarCliente.addActionListener(new ActionListener(){
-           public void actionPerformed(ActionEvent e){
-               CargarCliente ventanaCargarCliente = new CargarCliente(admin);
-               ventanaCargarCliente.setVisible(true);
-               ventanaCargarCliente.setLocationRelativeTo(null);
-           } 
-        });
+        CargarCliente ventanaCargarCliente = new CargarCliente(admin, sucursal);
+        ventanaCargarCliente.setVisible(true);
+        ventanaCargarCliente.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_cargarClienteActionPerformed
 
     private void claseStreamingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claseStreamingActionPerformed
-        claseStreaming.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                ClasesStreaming ventanaStreaming = new ClasesStreaming(admin);
-                ventanaStreaming.setVisible(true);
-                ventanaStreaming.setLocationRelativeTo(null);
-            }
-        
-        });
+        ClasesStreaming ventanaStreaming = new ClasesStreaming(admin, sucursal);
+        ventanaStreaming.setVisible(true);
+        ventanaStreaming.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_claseStreamingActionPerformed
 
     private void bajaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaClienteActionPerformed
-        bajaCliente.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                BajaCliente ventanaBajaCliente = new BajaCliente(admin);
-                ventanaBajaCliente.setVisible(true);
-                ventanaBajaCliente.setLocationRelativeTo(null);
-            }
-        });
+        BajaCliente ventanaBajaCliente = new BajaCliente(admin, sucursal);
+        ventanaBajaCliente.setVisible(true);
+        ventanaBajaCliente.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_bajaClienteActionPerformed
 
     private void gestionarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarClaseActionPerformed
-        gestionarClase.addActionListener(new ActionListener(){
-           public void actionPerformed(ActionEvent e){
-               GestionarClase ventanaGestionarClase = new GestionarClase(admin);
-               ventanaGestionarClase.setVisible(true);
-               ventanaGestionarClase.setLocationRelativeTo(null);
-           } 
-        });
+        GestionarClase ventanaGestionarClase = new GestionarClase(admin);
+        ventanaGestionarClase.setVisible(true);
+        ventanaGestionarClase.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_gestionarClaseActionPerformed
 
-    private void agendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaActionPerformed
-        agenda.addActionListener(new ActionListener(){
-            
-            public void actionPerformed(ActionEvent e){
-                Agenda ventanaAgenda = new Agenda(admin);
-                ventanaAgenda.setVisible(true);
-                ventanaAgenda.setLocationRelativeTo(null);
-            }
-            
-        });
-    }//GEN-LAST:event_agendaActionPerformed
+    private void btnAgendarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarClaseActionPerformed
+        AgendarClase ventanaAgenda = new AgendarClase(admin, sucursal);
+        ventanaAgenda.setVisible(true);
+        ventanaAgenda.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnAgendarClaseActionPerformed
 
     private void gestionarArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarArticulosActionPerformed
-        gestionarArticulos.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                GestionarArticulos ventanaArticulos = new GestionarArticulos(admin);
-                ventanaArticulos.setVisible(true);
-                ventanaArticulos.setLocationRelativeTo(null);   
-            }
-        });
+        GestionarArticulos ventanaArticulos = new GestionarArticulos(admin, sucursal);
+        ventanaArticulos.setVisible(true);
+        ventanaArticulos.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_gestionarArticulosActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
@@ -259,12 +242,21 @@ public class VentanaInformacion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
 
+    private void btnGestionarProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarProfesoresActionPerformed
+        // TODO add your handling code here:
+        GestionarProfesores ventanaProfesores = new GestionarProfesores(admin, sucursal);
+        ventanaProfesores.setVisible(true);
+        ventanaProfesores.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnGestionarProfesoresActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agenda;
     private javax.swing.JButton agregarArticulo;
     private javax.swing.JButton bajaCliente;
     private javax.swing.JButton botonVolver;
+    private javax.swing.JButton btnAgendarClase;
+    private javax.swing.JButton btnGestionarProfesores;
     private javax.swing.JButton cargarCliente;
     private javax.swing.JButton claseStreaming;
     private javax.swing.JButton gestionarArticulos;

@@ -65,15 +65,9 @@ public class GestionarClase extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void volverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverAtrasActionPerformed
-        volverAtras.addActionListener(new ActionListener(){
-        
-            public void actionPerformed(ActionEvent e){
-                MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
-                ventanaMenu.setVisible(true);
-                ventanaMenu.setLocationRelativeTo(null);
-            }
-            
-        });
+        MenuAdministrativo ventanaMenu = new MenuAdministrativo(admin);
+        ventanaMenu.setVisible(true);
+        ventanaMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_volverAtrasActionPerformed
 
