@@ -149,11 +149,11 @@ public class Clase {
 
     @Override
     public String toString() {
-        return "Sede: " + sede + "\n" + ""
-                + "Clase de " + ejercicio.toString() +
-                " - Capacidad: " + capacidad +
+        return "- Sede: " + sede + "\n" + ""
+                + "- Clase de " + ejercicio.getNombre() + "\n" +
+                "- Capacidad: " + capacidad + "\n" +
                 "- Profesor: " + profesor.getNombre() + "\n" +
-                "- Fecha y hora: " + horario.toString() +
+                "- Fecha y hora: " + horario.toString() + "\n" +
                 "- Duracion: " + duracion;
     }
 }

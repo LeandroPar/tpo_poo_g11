@@ -26,6 +26,7 @@ Vista\VentanaSeleccionarTipoArticulo$2.class
 Vista\AlumnoCancelarReserva.class
 Vista\ClasesStreaming.class
 Vista\TecnicoCargarSedes$1.class
+Vista\GestionarClase$2.class
 Modelo\Lugar.class
 Vista\CargarCliente$1.class
 Vista\AlumnoReservarClase$4.class
@@ -57,8 +58,8 @@ Modelo\Profesor.class
 Vista\VentanaInformacion$8.class
 Vista\VentanaInformacion$1.class
 Modelo\Articulos\Gadnic.class
-Vista\VentanaSeleccionarTipoArticulo$4.class
 Vista\TecnicoMenu.class
+Vista\VentanaSeleccionarTipoArticulo$4.class
 Modelo\Ejercicios\GimnasiaPostural.class
 Vista\AlumnoReservarClase$3.class
 Vista\Login.class
@@ -87,11 +88,11 @@ Vista\VentanaInformacion$6.class
 Vista\ClasesStreaming$3.class
 Modelo\enums\UsoPesa.class
 Vista\GestionarClase.class
-Vista\VentanaInformacion$5.class
 Vista\BajaCliente$1.class
+Vista\VentanaInformacion$5.class
 Vista\AlumnoMenu$4.class
-Vista\GestionarArticulos$1.class
 Vista\AlumnoReservarClase$1.class
+Vista\GestionarArticulos$1.class
 Vista\GestionarProfesores.class
 Vista\ClasesStreaming$2.class
 Vista\VentanaInformacion.class
@@ -102,7 +103,7 @@ Vista\GestionarArticulos$2.class
 Vista\TecnicoCargarUsuarios.class
 Modelo\enums\Nivel.class
 Controlador\Supertlon$1.class
-Modelo\enums\Amortizacion.class
 Modelo\Clase$1.class
-Vista\MenuAdministrativo$3.class
+Modelo\enums\Amortizacion.class
 Vista\GestionarArticulos.class
+Vista\MenuAdministrativo$3.class

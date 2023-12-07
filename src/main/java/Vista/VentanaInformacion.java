@@ -215,7 +215,7 @@ public class VentanaInformacion extends javax.swing.JFrame {
     }//GEN-LAST:event_bajaClienteActionPerformed
 
     private void gestionarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarClaseActionPerformed
-        GestionarClase ventanaGestionarClase = new GestionarClase(admin);
+        GestionarClase ventanaGestionarClase = new GestionarClase(admin, sucursal);
         ventanaGestionarClase.setVisible(true);
         ventanaGestionarClase.setLocationRelativeTo(null);
         this.dispose();
